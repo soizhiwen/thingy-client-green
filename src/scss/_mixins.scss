@@ -1,0 +1,18 @@
+@import "_variables.scss";
+
+@mixin page-title() {
+    color: $muddy-green;
+    font-weight: 600;
+    line-height: normal; 
+    font-size: 30px;
+    font-style: italic;
+}
+
+@mixin subtitle() {
+    color: $muddy-green;
+    opacity: 50%;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 500;
+    padding-bottom: 50px;
+}

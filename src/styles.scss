@@ -1,21 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Inter');
 @import "scss/_variables.scss";
 
-* {
-    font-family: Inter;
-}
-.title {
-    color: $muddy-green;
-    font-weight: 600;
-    line-height: normal; 
-    font-size: 30px;
-    font-style: italic;
-}
+html, body { height: 100%; }
 
-.subtitle {
-    color: $muddy-green;
-    opacity: 50%;
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 500;
+body {
+    margin: 0;
+    font-family: Inter;
 }

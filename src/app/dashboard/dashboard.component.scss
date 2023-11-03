@@ -1,10 +1,15 @@
-@import "src/scss/_variables.scss";
+@import "../../scss/_mixins.scss";
+@import "../../scss/_variables.scss";
 
 .dashboard {
     padding-left: 50px;
 
+    .title {
+       @include page-title();
+    }
+
     .subtitle {
-        padding-bottom: 50px;
+        @include subtitle();
     }
 
     .seperation-line {
