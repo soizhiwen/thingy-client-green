@@ -1,0 +1,114 @@
+@import "src/scss/_variables.scss";
+
+
+mat-sidenav-container {
+  height: 100vh;
+
+  mat-sidenav{
+    .navContent{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .navHead{
+      padding-top: 30px;
+      display: flex;
+      flex-direction: row;
+      align-items:center ;
+    }
+    .chevron-right-button {
+      transition: 300ms ease-in-out;
+      transform: rotate(0deg);
+
+      right: 0;
+      float: right;
+      position: absolute;
+
+      color: $muddy-green;
+    }
+    .chevron-right-button.rotated{
+      transform: rotate(180deg);
+    }
+
+    mat-nav-list{
+      margin: 20px;
+      margin-top: 50px;
+
+      mat-list-item{
+
+        margin-bottom: 20px;
+
+        .navItem{
+          display: flex;
+          align-items: center;
+        }
+        .navIcon{
+          color: $muddy-green;
+        }
+        .navTitle{
+          color: $muddy-green;
+          font-size: 18px;
+          font-weight:600;
+
+          margin-left: 10px;
+        }
+      }
+
+    }
+    .navFooter{
+      bottom: 0;
+      position: absolute;
+      margin-bottom: 50px;
+    }
+    .logoutButton{
+      color: $cream;
+      background-color: $muddy-green;
+      font-size: 18px;
+      font-weight:600;
+
+      width: 150px;
+      height: 40px;
+    }
+    .logoutIcon{
+      color: $muddy-green;
+    }
+  }
+
+  mat-toolbar{
+    background-color: transparent;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    .search-bar{
+      height: 40px;
+      border-radius: 9px;
+      border-color: $muddy-green;
+    }
+    mat-form-field{
+      &.border-green {
+        ::ng-deep .mat-form-field-outline {
+             color: $muddy-green !important;
+        }
+        ::ng-deep .mat-form-field-label {
+             color: $muddy-green !important;
+        }
+     }
+     margin: 0px;
+
+     .searchIcon{
+      color:  $muddy-green;
+    }
+    }
+    .spacer{
+      flex: 1 1 auto;
+    }
+    .notificationIcon{
+      color:  $muddy-green;
+    }
+  }
+
+}
+
+
+
