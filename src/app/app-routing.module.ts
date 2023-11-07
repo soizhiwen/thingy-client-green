@@ -1,12 +1,16 @@
 import { NavBarModule } from './nav-bar/nav-bar.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WrapperComponent } from './components/wrapper/wrapper.component';
+import { OnboardingComponent } from './components/onboarding/onboarding.component';
 
 const routes: Routes = [
   {
+    path:'home',
+    loadChildren: () => NavBarModule
+  },
+  {
     path:'',
-    loadChildren: () => import('./nav-bar/nav-bar.module').then(m => m.NavBarModule)
+    component:OnboardingComponent
   },
   {
     path: '**',
