@@ -1,0 +1,165 @@
+@import "src/scss/_variables.scss";
+
+
+mat-sidenav-container {
+  height: 100vh;
+
+  mat-sidenav{
+    .navContent{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .navHead{
+      padding-top: 50px;
+      display: flex;
+      flex-direction: row;
+      align-items:center ;
+    }
+    .chevron-right-button {
+      transition: 300ms ease-in-out;
+      transform: rotate(0deg);
+
+      right: 0;
+      float: right;
+      position: absolute;
+
+      color: $muddy-green;
+    }
+    .chevron-right-button.rotated{
+      transform: rotate(180deg);
+    }
+
+    mat-nav-list{
+      margin: 20px;
+      margin-top: 50px;
+
+      .div-active{
+        background-color: $muddy-green;
+        border-radius: 5px;
+      }
+
+      mat-list-item{
+
+        margin-bottom: 20px;
+
+        .title-active{
+          color: $cream;
+          font-size: 18px;
+          font-weight:600;
+          margin-left: 10px;
+        }
+        .icon-active{
+          color: $cream;
+        }
+
+        .navItem{
+          display: flex;
+          align-items: center;
+        }
+        .navIcon{
+          color: $muddy-green;
+        }
+        .navTitle{
+          color: $muddy-green;
+          font-size: 18px;
+          font-weight:600;
+          margin-left: 10px;
+        }
+      }
+
+    }
+    .navFooter{
+      bottom: 0;
+      position: absolute;
+      margin-bottom: 50px;
+    }
+    .logoutButton{
+      color: $cream;
+      background-color: $muddy-green;
+      font-size: 18px;
+      font-weight:600;
+
+      width: 150px;
+      height: 40px;
+    }
+    .logoutButtonSmall{
+      background-color: $muddy-green;
+      border-radius: 5px;
+      height: 40px;
+      width: 40px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+    .logoutIcon{
+      color: $cream;
+    }
+  }
+
+  mat-toolbar{
+    background-color: transparent;
+    padding:50px;
+
+    .search-bar{
+      height: 40px;
+      border-radius: 9px;
+      border-color: $muddy-green;
+    }
+    mat-form-field{
+
+     margin: 0px;
+
+     .searchIcon{
+      color:  $muddy-green;
+      padding:0px;
+      margin-left: 12px;
+
+     }
+    }
+    .spacer{
+      flex: 1 1 auto;
+    }
+    .notificationIcon{
+      color:  $muddy-green;
+    }
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+  mat-sidenav-container {
+    height: 100vh;
+    .nav-menu-icon{
+      color: $muddy-green;
+    }
+    mat-sidenav{
+      width: 100%;
+      align-items: center;
+
+      .close-right-button{
+        right: 0;
+        float: right;
+        position: absolute;
+        margin-right: 30px;
+
+        color: $muddy-green;
+      }
+      .navContent{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+    }
+    mat-toolbar{
+      padding:30px;
+      margin-bottom: 20px;
+
+      border-style: none none solid none;
+      border-color: $muddy-green;
+      border-width: 1px;
+    }
+  }
+}

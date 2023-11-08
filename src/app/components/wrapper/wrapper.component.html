@@ -1,0 +1,52 @@
+<mat-sidenav-container autosize>
+
+  <mat-sidenav #sidenav mode="side" [opened]="sidenavOpened">
+
+    <div class="navContent">
+      <div class="navHead">
+        <mat-icon *ngIf="!mobile" class="chevron-right-button sidenav-button" (click)="isExpanded = !isExpanded" [ngClass]="{'rotated':isExpanded}">chevron_right</mat-icon>
+        <button class="close-right-button" mat-icon-button *ngIf="mobile" (click)="sidenavOpened = !sidenavOpened">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let item of navBarItems" [ngClass]="{'div-active': activeRoute ==item.path}" >
+          <div class="navItem" [routerLink]="item.path" >
+            <mat-icon [ngClass]="{'navIcon': activeRoute !=item.path,'icon-active': activeRoute ==item.path}" >{{item.iconName}}</mat-icon>
+            <span [ngClass]="{'navTitle': activeRoute !=item.path,'title-active': activeRoute ==item.path}" *ngIf="isExpanded">{{item.title}}</span>
+          </div>
+        </mat-list-item>
+      </mat-nav-list>
+      <div class="navFooter">
+        <button *ngIf="isExpanded" mat-raised-button class="logoutButton">Logout</button>
+        <div *ngIf="!isExpanded" mat-raised-button class="logoutButtonSmall"><mat-icon  class="logoutIcon">power_settings_new</mat-icon></div>
+      </div>
+    </div>
+
+  </mat-sidenav>
+
+  <div class="content">
+    <mat-toolbar>
+      <button mat-icon-button *ngIf="mobile" (click)="sidenavOpened = !sidenavOpened">
+        <mat-icon class="nav-menu-icon">menu</mat-icon>
+      </button>
+      <div class="search-bar" *ngIf="!mobile">
+        <mat-form-field color="primary" appearance="outline">
+          <mat-icon matPrefix class="searchIcon">search</mat-icon>
+          <input type="search" matInput placeholder="Search">
+        </mat-form-field>
+      </div>
+      <span class="spacer"></span>
+      <button mat-icon-button *ngIf="mobile" >
+        <mat-icon class="notificationIcon" >search</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon class="notificationIcon" matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+      </button>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </div>
+
+
+</mat-sidenav-container>
+
