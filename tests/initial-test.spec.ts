@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test('Login works', async ({ page }) => {
   await page.goto('http://localhost:4200/');
 
-  await page.getByTestId('dashboard').getByText('Dashboard').click();
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByTestId('dashboard').getByText('Dashboard')).toBeVisible();
 });
