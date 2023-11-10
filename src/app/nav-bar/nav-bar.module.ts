@@ -4,6 +4,9 @@ import { WrapperComponent } from '../components/wrapper/wrapper.component';
 import { UsersComponent } from '../components/users/users.component';
 import { MaterialModule } from '../material.module';
 import { CommonModule } from '@angular/common';
+import { DialogComponent } from '../components/dialog/dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PlantsComponent } from '../components/plants/plants.component';
 
 
 /** @title Sidenav open & close behavior */
@@ -12,14 +15,18 @@ import { CommonModule } from '@angular/common';
   imports: [
     NavBarRoutingModule,
     MaterialModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
     WrapperComponent,
-    UsersComponent
+    UsersComponent,
+    PlantsComponent,
+    DialogComponent
   ]
 })
 
-export class NavBarModule  {
+export class NavBarModule {
 
 }

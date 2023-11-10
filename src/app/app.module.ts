@@ -9,13 +9,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { greenhouseReducer } from './state/greenhouse.reducer';
 import { HttpClientModule } from '@angular/common/http';
-import { PlantsComponent } from './components/plants/plants.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent,
-        PlantsComponent
+        DashboardComponent
     ],
     providers: [],
     bootstrap: [AppComponent],

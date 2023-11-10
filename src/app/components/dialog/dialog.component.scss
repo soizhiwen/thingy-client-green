@@ -1,0 +1,30 @@
+@import "../../../scss/_mixins.scss";
+@import "../../../scss/_variables.scss";
+
+.title {
+    color: $muddy-green;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.subtitle {
+    color: $muddy-green;
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 270px;
+    margin-bottom: 20px;
+}
+
+.dialog-button {
+    color: $cream;
+    background-color: $muddy-green;
+    font-size: 20px;
+    width: 270px;
+    height: 40px; 
+    font-weight: 500;
+    font-family: Inter;
+}

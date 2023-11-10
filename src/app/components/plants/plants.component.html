@@ -4,7 +4,7 @@
         Add and update the details of your plants
     </div>
 
-    <button mat-raised-button class="add-plant-button">+ Add Plant </button>
+    <button mat-raised-button class="add-plant-button" (click)="openDialog()">+ Add Plant </button>
 
     <mat-table class="plant-table" [dataSource]="data">
 
