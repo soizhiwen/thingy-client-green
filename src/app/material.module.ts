@@ -7,6 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -19,7 +20,8 @@ import {MatBadgeModule} from '@angular/material/badge';
       MatIconModule,
       MatToolbarModule,
       MatInputModule,
-      MatBadgeModule
+      MatBadgeModule,
+      MatTableModule,
   ]
   })
   export class MaterialModule{}
