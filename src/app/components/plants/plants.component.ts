@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent, DialogData } from '../dialog/dialog.component';
+import { PlantDialogComponent } from '../plant-dialog/plant-dialog.component';
 import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Plant } from 'src/app/state/plant/plant.model';
+import { Store } from '@ngrx/store';
+import { ApiService } from 'src/app/api/api.service';
+import { ApiActions, PlantActions } from 'src/app/state/actions';
+import { selectPlants } from 'src/app/state/plant/plant.selectors';
 
 @Component({
   selector: 'app-plants',
@@ -11,31 +17,20 @@ import { FormControl, Validators } from '@angular/forms';
 
 export class PlantsComponent {
   columns = ['plant', 'date', 'actions']
-  data = [
-    { plant: "Tomato", date: Date() },
-    { plant: "Salad", date: Date() },
-    { plant: "Orchid", date: Date() }
-  ]
+  data$: Observable<Plant[]> = this.store.select(selectPlants);
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private store: Store) { }
+
+  ngOnInit(): void {
+    this.store.dispatch(PlantActions.loadPlants());
+  }
+
+  deletePlant(plantId: number) {
+    this.store.dispatch(PlantActions.deletePlant({ plantId }));
+  }
 
   openDialog() {
-    const dialogData: DialogData = {
-      title: "Add Plant",
-      subtitle: "Create a new plant for the system",
-      imageTitle: 'Plant image',
-      buttonText: 'Add Plant',
-      inputFields: [
-        { id: 'name', placeholder: 'Plant name', formControl: new FormControl('', [Validators.required]), type: 'text' },
-        { id: 'harvest-time', placeholder: 'Expected Harvest time', formControl: new FormControl(''), type: 'date' },
-        { id: 'humidiy', placeholder: 'Humidity', formControl: new FormControl('', [Validators.required]), type: 'text' },
-        { id: 'temperature', placeholder: 'Temperature', formControl: new FormControl('', [Validators.required]), type: 'text' },
-        { id: 'co2', placeholder: 'C02 Level', formControl: new FormControl('', [Validators.required]), type: 'text' },
-        { id: 'air-quality', placeholder: 'Air Quality', formControl: new FormControl('', [Validators.required]), type: 'text' }
-      ]
-    }
-    this.dialog.open(DialogComponent, {
-      data: dialogData,
+    this.dialog.open(PlantDialogComponent, {
       minHeight: 650
     });
   }

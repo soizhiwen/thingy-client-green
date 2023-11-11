@@ -4,7 +4,7 @@ import { WrapperComponent } from '../components/wrapper/wrapper.component';
 import { UsersComponent } from '../components/users/users.component';
 import { MaterialModule } from '../material.module';
 import { CommonModule } from '@angular/common';
-import { DialogComponent } from '../components/dialog/dialog.component';
+import { PlantDialogComponent } from '../components/plant-dialog/plant-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlantsComponent } from '../components/plants/plants.component';
 
@@ -23,7 +23,7 @@ import { PlantsComponent } from '../components/plants/plants.component';
     WrapperComponent,
     UsersComponent,
     PlantsComponent,
-    DialogComponent
+    PlantDialogComponent
   ]
 })
 

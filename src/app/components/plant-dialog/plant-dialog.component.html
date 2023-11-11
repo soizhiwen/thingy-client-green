@@ -1,11 +1,11 @@
-<div mat-dialog-title class="title">{{data.title}}</div>
+<div mat-dialog-title class="title">Add Plant</div>
 <div mat-dialog-content>
-    <div class="subtitle">{{data.subtitle}}</div>
+    <div class="subtitle">Create a new plant for the system</div>
     <form>
-        <div *ngFor="let inputField of data.inputFields">
-            <mat-form-field *ngIf="inputField.type == 'text'" class="input-field" [id]="'input-field-' + inputField.id">
+        <div *ngFor="let inputField of inputFields">
+            <mat-form-field *ngIf="inputField.type != 'date'" class="input-field" [id]="'input-field-' + inputField.id">
                 <mat-label>{{ inputField.placeholder }}</mat-label>
-                <input matInput [formControl]="inputField.formControl">
+                <input matInput [formControl]="inputField.formControl" [type]="inputField.type">
                 <mat-error *ngIf="inputField.formControl.hasError('required')">This Field is required.</mat-error>
             </mat-form-field>
 
@@ -20,5 +20,8 @@
     </form>
 </div>
 <mat-dialog-actions align="center">
-    <button mat-raised-button mat-dialog-close class="dialog-button"> {{ data.buttonText }} </button>
+    <button mat-raised-button mat-dialog-close class="dialog-button" (click)="addPlant()"
+        [disabled]="isButtonDisabled()">
+        Add Plant
+    </button>
 </mat-dialog-actions>
