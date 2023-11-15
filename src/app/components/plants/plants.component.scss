@@ -22,14 +22,13 @@
 
         .table-row {
             font-size: 18px;
+            height: 60px;
         }
 
         .action-button {
             background-color: $muddy-green;
             color: $cream;
             border-radius: 5px;
-            height: 35px;
-            width: 35px;
             margin-right: 5px;
         }
     }

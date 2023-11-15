@@ -5,17 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
-import { greenhouseReducer } from './state/greenhouse.reducer';
+import { greenhouseReducer } from './state/greenhouse/greenhouse.reducer';
 import { HttpClientModule } from '@angular/common/http';
-import { PlantsComponent } from './components/plants/plants.component';
+import { plantReducer } from './state/plant/plant.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { GreenhouseEffects } from './state/greenhouse/greenhouse.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { PlantEffects } from './state/plant/plant.effects';
 
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent,
-        PlantsComponent
+        DashboardComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -24,8 +27,18 @@ import { PlantsComponent } from './components/plants/plants.component';
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        StoreModule.forRoot({ greenhouse: greenhouseReducer }, {}),
-        MaterialModule
+        StoreModule.forRoot({
+            greenhouse: greenhouseReducer,
+            plants: plantReducer,
+        }),
+        EffectsModule.forRoot([
+            GreenhouseEffects,
+            PlantEffects
+        ]),
+        MaterialModule,
+        StoreDevtoolsModule.instrument({
+            maxAge: 25,
+        }),
     ]
 })
 export class AppModule { }

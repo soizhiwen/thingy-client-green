@@ -1,0 +1,27 @@
+<div mat-dialog-title class="title">Add Plant</div>
+<div mat-dialog-content>
+    <div class="subtitle">Create a new plant for the system</div>
+    <form>
+        <div *ngFor="let inputField of inputFields">
+            <mat-form-field *ngIf="inputField.type != 'date'" class="input-field" [id]="'input-field-' + inputField.id">
+                <mat-label>{{ inputField.placeholder }}</mat-label>
+                <input matInput [formControl]="inputField.formControl" [type]="inputField.type">
+                <mat-error *ngIf="inputField.formControl.hasError('required')">This Field is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="inputField.type == 'date'" class="input-field">
+                <mat-label>{{ inputField.placeholder }}</mat-label>
+                <input matInput [matDatepicker]="picker" [formControl]="inputField.formControl">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+    </form>
+</div>
+<mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close class="dialog-button"
+        (click)="plantId == undefined? addPlant() : editPlant()" [disabled]="isButtonDisabled()">
+        Add Plant
+    </button>
+</mat-dialog-actions>

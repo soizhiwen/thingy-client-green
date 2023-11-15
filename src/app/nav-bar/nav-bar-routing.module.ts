@@ -1,26 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WrapperComponent } from '../components/wrapper/wrapper.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { UsersComponent } from '../components/users/users.component';
 import { PlantsComponent } from '../components/plants/plants.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:WrapperComponent,
-    children:[
+    path: '',
+    component: WrapperComponent,
+    children: [
       {
-        path:'dashboard',
-        component:DashboardComponent
+        path: 'dashboard',
+        component: DashboardComponent
       },
       {
-        path:'users',
-        component:UsersComponent
+        path: 'users',
+        component: UsersComponent
       },
       {
-        path:'plants',
-        component:PlantsComponent
+        path: 'plants',
+        component: PlantsComponent
       }
     ]
   }

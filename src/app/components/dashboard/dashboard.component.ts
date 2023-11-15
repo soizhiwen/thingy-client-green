@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectCurrentAirQuality, selectCurrentCo2, selectCurrentHumidity, selectCurrentTemperature } from '../state/greenhouse.selectors';
+import { selectCurrentAirQuality, selectCurrentCo2, selectCurrentHumidity, selectCurrentTemperature } from '../../state/greenhouse/greenhouse.selectors';
 import { Observable } from 'rxjs';
-import { ThingyApiService } from '../thingyApi/thingyApi.service';
-import { ThingyApiActions } from '../state/thingyApi.actions';
+import { DashboardActions } from '../../state/actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,12 +16,9 @@ export class DashboardComponent implements OnInit {
   currentCo2$: Observable<number> = this.store.select(selectCurrentCo2);
   currentAirQuality$: Observable<number> = this.store.select(selectCurrentAirQuality);
 
-  constructor(private thingyApiService: ThingyApiService, private store: Store) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.thingyApiService.getGreenhouseData()
-      .subscribe((greenhouse) => {
-        this.store.dispatch(ThingyApiActions.receivedGreenhouseData({ greenhouse }))
-      });
+    this.store.dispatch(DashboardActions.loadGreenhouseData())
   }
 }

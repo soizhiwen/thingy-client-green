@@ -1,5 +1,5 @@
 import { Store, createFeatureSelector, createSelector } from "@ngrx/store";
-import { Greenhouse } from "../thingyApi/greenhouse.model";
+import { Greenhouse } from "./greenhouse.model";
 
 const selectCurrentGreenhouseData = createFeatureSelector<Greenhouse>('greenhouse');
 
