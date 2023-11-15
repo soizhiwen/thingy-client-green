@@ -1,0 +1,74 @@
+@import "src/scss/_variables.scss";
+
+mat-drawer-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+
+  .onboardingForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 500px;
+
+    .title{
+      font-size: 20px;
+      font-weight:900;
+      color: $muddy-green;
+
+      margin: 30px;
+    }
+    .formField{
+      width: 100%;
+    }
+    .eyeIcon{
+      color: $muddy-green;
+    }
+    .link{
+      color: $muddy-green;
+
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .link:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .onboardButton{
+      color: $cream;
+      background-color: $muddy-green;
+      font-size: 18px;
+      font-weight:600;
+
+      width: 100%;
+      height: 40px;
+    }
+    .onboardOutlineButton{
+      color: $muddy-green;
+      border: solid;
+      border-color: $muddy-green;
+      border-width: 1px;
+      font-size: 18px;
+      font-weight:600;
+
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin:20px;
+    }
+
+    .googleIcon{
+      width: 7%;
+      height: auto;
+    }
+  }
+
+}
+

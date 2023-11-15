@@ -24,6 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
         HttpClientModule,
         StoreModule.forRoot({ greenhouse: greenhouseReducer }, {}),
         MaterialModule
+    ],
+    exports:[
+      MaterialModule
     ]
 })
 export class AppModule { }

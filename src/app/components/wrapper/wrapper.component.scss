@@ -124,6 +124,14 @@ mat-sidenav-container {
     .notificationIcon{
       color:  $muddy-green;
     }
+    .notificationsMenu{
+      width: 100%;
+    }
+    .notificationsMenuHead{
+      display: flex;
+      flex-direction: row;
+      width: 300px;
+    }
   }
 
 }

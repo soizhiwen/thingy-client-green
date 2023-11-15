@@ -1,2 +1,55 @@
-<p>onboarding works!</p>
-<button mat-raised-button (click)="login()">Login</button>
+<mat-drawer-container class="container">
+    <mat-tab-group>
+      <mat-tab label="Login">
+        <div class="onboardingForm">
+          <div class="title">Login to your account</div>
+            <mat-form-field class="formField" appearance="outline" color="primary">
+              <input matInput type="email" placeholder="Email">
+            </mat-form-field>
+            <mat-form-field class="formField" appearance="outline" color="primary">
+              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password">
+              <button mat-icon-button matSuffix (click)="hide = !hide"  [attr.aria-pressed]="hide">
+                <mat-icon class="eyeIcon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="link"><a>Forgot Password?</a></div>
+            <button class="onboardButton" mat-raised-button (click)="login()">Login</button>
+            <button class="onboardOutlineButton" mat-raised-button (click)="login()">
+              <img class="googleIcon" src="../../../assets/google-icon.png" />
+              Login with Google
+            </button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Signup">
+        <div class="onboardingForm">
+          <div class="title">Create a new account</div>
+            <mat-form-field class="formField" appearance="outline" color="primary">
+              <input matInput type="email" placeholder="Email">
+            </mat-form-field>
+            <mat-form-field class="formField" appearance="outline" color="primary">
+              <input matInput type="text" placeholder="User Name">
+            </mat-form-field>
+            <mat-form-field class="formField" appearance="outline" color="primary">
+              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password">
+              <button mat-icon-button matSuffix (click)="hide = !hide"  [attr.aria-pressed]="hide">
+                <mat-icon class="eyeIcon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field class="formField" appearance="outline" color="primary">
+              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm Password">
+              <button mat-icon-button matSuffix (click)="hide = !hide"  [attr.aria-pressed]="hide">
+                <mat-icon class="eyeIcon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <button class="onboardButton" mat-raised-button (click)="login()">Signup</button>
+            <button class="onboardOutlineButton" mat-raised-button (click)="login()">
+              <img class="googleIcon" src="../../../assets/google-icon.png" />
+              Signup with Google
+            </button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+</mat-drawer-container>
+
+
+

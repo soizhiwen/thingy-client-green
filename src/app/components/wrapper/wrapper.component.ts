@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-wrapper',
   templateUrl: './wrapper.component.html',
-  styleUrls: ['./wrapper.component.scss']
+  styleUrls: ['./wrapper.component.scss'],
 })
 export class WrapperComponent {
 
@@ -13,6 +12,7 @@ export class WrapperComponent {
   mobile:boolean =false;
   sidenavOpened:boolean=true ;
   activeRoute:string='';
+
 
   navBarItems:Array<{title:string;iconName:string;path:string}>=[
     {title:'Dashboard',iconName:'dashboard',path:'dashboard'},
@@ -35,5 +35,6 @@ export class WrapperComponent {
     this.activeRoute=this.router.url;
     this.activeRoute=this.activeRoute.split('/home/')[1];
   }
+
 
 }
