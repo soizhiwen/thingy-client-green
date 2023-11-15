@@ -7,34 +7,24 @@
     <div>
         <div class="section-title"> Current Plants </div>
         <hr class="seperation-line">
+
+        <div class="cards" *ngFor="let plant of (currentPlants$ | async)">
+            <div class="plant-card" (click)="plantSelected = !plantSelected">
+                <div class="plant-name"> {{ plant.name }} </div>
+                <div *ngIf="plant.harvest_date != undefined"> {{ daysLeft(plant.harvest_date) + ' days more' }} </div>
+            </div>
+        </div>
     </div>
 
-    <div class="details">
+    <div class="details" *ngIf="plantSelected">
         <div class="section-title"> Details </div>
         <hr class="seperation-line">
-        <div class="detail-boxes">
-            <div class="detail-box">
-                <div> Temperature </div>
-                <img class="temperature-icon" src="../../assets/temperature.png" />
-                <div class="current-value"> {{ currentTemperature$ | async }}°C </div>
-                <div>View Graph <img src="../../assets/vector.svg"></div>
-            </div>
-            <div class="detail-box">
-                Humidity
-                <img class="temperature-icon" src="../../assets/humidity.png" />
-                <div class="current-value"> {{ currentHumidity$ | async }}% </div>
-                <div>View Graph <img src="../../assets/vector.svg"></div>
-            </div>
-            <div class="detail-box">
-                CO2 Level
-                <img class="temperature-icon" src="../../assets/co2.png" />
-                <div class="current-value"> {{ currentCo2$ | async }}% </div>
-                <div>View Graph <img src="../../assets/vector.svg"></div>
-            </div>
-            <div class="detail-box">
-                Air Quality
-                <img class="temperature-icon" src="../../assets/air-quality.png" />
-                <div class="current-value"> {{ currentAirQuality$ | async }}% </div>
+
+        <div class="cards">
+            <div class="detail-card" *ngFor="let detail of currentDetails">
+                <div> {{ detail.name }} </div>
+                <img class="temperature-icon" [src]="detail.img" />
+                <div class="current-value"> {{ (detail.value$| async) }}{{ detail.unit }}</div>
                 <div>View Graph <img src="../../assets/vector.svg"></div>
             </div>
         </div>
@@ -42,6 +32,6 @@
     </div>
 
     <div>
-        <div class="section-title"> Notifications </div>
+        <div class="section-title" *ngIf="plantSelected"> Notifications </div>
     </div>
 </div>

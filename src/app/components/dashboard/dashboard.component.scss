@@ -25,47 +25,42 @@
         font-weight: 600;
         line-height: normal; 
     }
+        .cards {
+            @include cards();
 
-    .details {
-        .detail-boxes {
-            display: flex;
-            gap: 34px;
+        .plant-card {
+            @include card();
+            color: $muddy-green;
+            font-size: 15px;
+            cursor: pointer;
+            background-image: url("../../../assets/plant.png");
+            padding-top: 5px;
 
-            .detail-box {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                align-items: center;
-                justify-content: center;
+            .plant-name{
+                font-size: 25px;
+                font-weight: 700;
+            }
+        }
 
+        .detail-card {
+            @include card(); 
+            background-color: $muddy-green;
+            color: $cream;
+            justify-content: center;
+
+            .temperature-icon {
+                height: 33x;
+                width: 33px;
+                display: block;
+                color: $cream
+            }
+    
+            .current-value {
                 color: $cream;
-                font-size: 17px;
+                font-size: 36px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal; 
-   
-                margin-top: 32px;
-                margin-bottom: 34px;
-                width: 138px;
-                height: 172px;
-                border-radius: 9px;
-                background: $muddy-green;
-                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
-                
-                .temperature-icon {
-                    height: 33x;
-                    width: 33px;
-                    display: block;
-                    color: $cream
-                }
-        
-                .current-value {
-                    color: $cream;
-                    font-size: 36px;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: normal; 
-                }
             }
         }
     }
