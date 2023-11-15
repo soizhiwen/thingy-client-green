@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PlantDialogComponent } from '../plant-dialog/plant-dialog.component';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Plant } from 'src/app/state/plant/plant.model';
 import { Store } from '@ngrx/store';
-import { ApiService } from 'src/app/api/api.service';
-import { ApiActions, PlantActions } from 'src/app/state/actions';
+import { PlantActions } from 'src/app/state/actions';
 import { selectPlants } from 'src/app/state/plant/plant.selectors';
 
 @Component({
@@ -17,7 +16,7 @@ import { selectPlants } from 'src/app/state/plant/plant.selectors';
 
 export class PlantsComponent {
   columns = ['plant', 'date', 'actions']
-  data$: Observable<Plant[]> = this.store.select(selectPlants);
+  plant$: Observable<Plant[]> = this.store.select(selectPlants);
 
   constructor(public dialog: MatDialog, private store: Store) { }
 
@@ -29,9 +28,10 @@ export class PlantsComponent {
     this.store.dispatch(PlantActions.deletePlant({ plantId }));
   }
 
-  openDialog() {
+  openDialog(plantId?: number) {
     this.dialog.open(PlantDialogComponent, {
-      minHeight: 650
+      minHeight: 650,
+      data: plantId
     });
   }
 }

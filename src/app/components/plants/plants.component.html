@@ -6,11 +6,11 @@
 
     <button mat-raised-button class="add-plant-button" (click)="openDialog()">+ Add Plant </button>
 
-    <mat-table class="plant-table" [dataSource]="(data$ | async) ?? []">
+    <mat-table class="plant-table" [dataSource]="(plant$ | async) ?? []">
 
         <ng-container matColumnDef="plant">
             <mat-header-cell *matHeaderCellDef>Plant</mat-header-cell>
-            <mat-cell *matCellDef="let data"> {{ data.name }} </mat-cell>
+            <mat-cell *matCellDef="let plant"> {{ plant.name }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="date">
@@ -21,8 +21,10 @@
         <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
             <mat-cell *matCellDef="let data">
-                <button mat-icon-button class="action-button"><mat-icon>edit</mat-icon></button>
-                <button mat-icon-button class="action-button" (click)="deletePlant(data.id)"><mat-icon>delete_outline</mat-icon></button>
+                <button mat-icon-button class="action-button"
+                    (click)="openDialog(data.id)"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button class="action-button"
+                    (click)="deletePlant(data.id)"><mat-icon>delete_outline</mat-icon></button>
             </mat-cell>
         </ng-container>
 

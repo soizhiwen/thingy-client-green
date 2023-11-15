@@ -20,8 +20,8 @@
     </form>
 </div>
 <mat-dialog-actions align="center">
-    <button mat-raised-button mat-dialog-close class="dialog-button" (click)="addPlant()"
-        [disabled]="isButtonDisabled()">
+    <button mat-raised-button mat-dialog-close class="dialog-button"
+        (click)="plantId == undefined? addPlant() : editPlant()" [disabled]="isButtonDisabled()">
         Add Plant
     </button>
 </mat-dialog-actions>
