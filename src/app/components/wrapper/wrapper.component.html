@@ -11,7 +11,7 @@
       </div>
       <mat-nav-list>
         <mat-list-item *ngFor="let item of navBarItems" [ngClass]="{'div-active': activeRoute ==item.path}" >
-          <div class="navItem" [routerLink]="item.path" >
+          <div class="navItem" [routerLink]="item.path" [attr.data-testid]="item.title + '-nav'">
             <mat-icon [ngClass]="{'navIcon': activeRoute !=item.path,'icon-active': activeRoute ==item.path}" >{{item.iconName}}</mat-icon>
             <span [ngClass]="{'navTitle': activeRoute !=item.path,'title-active': activeRoute ==item.path}" *ngIf="isExpanded">{{item.title}}</span>
           </div>

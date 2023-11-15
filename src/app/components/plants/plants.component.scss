@@ -1,0 +1,47 @@
+@import "../../../scss/_mixins.scss";
+@import "../../../scss/_variables.scss";
+
+.plants {
+    padding-left: 50px;
+    padding-right: 50px;
+
+    .title {
+       @include page-title();
+    }
+
+    .subtitle {
+        @include subtitle();
+    }
+
+    .plant-table {
+        .header-row {
+            background-color: $light-muddy-green;
+            color: $muddy-green;
+            font-size: 18px;
+        }
+
+        .table-row {
+            font-size: 18px;
+            height: 60px;
+        }
+
+        .action-button {
+            background-color: $muddy-green;
+            color: $cream;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    .add-plant-button{
+        color: $cream;
+        background-color: $muddy-green;
+        font-size: 20px;
+        width: 156px;
+        height: 39px; 
+        font-weight: 500;
+        font-family: Inter;
+
+        margin-bottom: 40px;
+    }
+}

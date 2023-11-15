@@ -1,0 +1,67 @@
+@import "../../../scss/_mixins.scss";
+@import "../../../scss/_variables.scss";
+
+.dashboard {
+    padding-left: 50px;
+
+    .title {
+       @include page-title();
+    }
+
+    .subtitle {
+        @include subtitle();
+    }
+
+    .seperation-line {
+        width: 1068px;
+        color: $muddy-green;
+        margin-left: 0;
+    }
+
+    .section-title {
+        color: $muddy-green;
+        font-size: 21px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal; 
+    }
+        .cards {
+            @include cards();
+
+        .plant-card {
+            @include card();
+            color: $muddy-green;
+            font-size: 15px;
+            cursor: pointer;
+            background-image: url("../../../assets/plant.png");
+            padding-top: 5px;
+
+            .plant-name{
+                font-size: 25px;
+                font-weight: 700;
+            }
+        }
+
+        .detail-card {
+            @include card(); 
+            background-color: $muddy-green;
+            color: $cream;
+            justify-content: center;
+
+            .temperature-icon {
+                height: 33x;
+                width: 33px;
+                display: block;
+                color: $cream
+            }
+    
+            .current-value {
+                color: $cream;
+                font-size: 36px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal; 
+            }
+        }
+    }
+}

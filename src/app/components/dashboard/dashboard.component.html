@@ -1,0 +1,37 @@
+<div class="dashboard" data-testid="dashboard">
+    <div class="title"> Dashboard </div>
+    <div class="subtitle">
+        Here are your analytical details
+    </div>
+
+    <div>
+        <div class="section-title"> Current Plants </div>
+        <hr class="seperation-line">
+
+        <div class="cards" *ngFor="let plant of (currentPlants$ | async)">
+            <div class="plant-card" (click)="plantSelected = !plantSelected">
+                <div class="plant-name"> {{ plant.name }} </div>
+                <div *ngIf="plant.harvest_date != undefined"> {{ daysLeft(plant.harvest_date) + ' days more' }} </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="details" *ngIf="plantSelected">
+        <div class="section-title"> Details </div>
+        <hr class="seperation-line">
+
+        <div class="cards">
+            <div class="detail-card" *ngFor="let detail of currentDetails">
+                <div> {{ detail.name }} </div>
+                <img class="temperature-icon" [src]="detail.img" />
+                <div class="current-value"> {{ (detail.value$| async) }}{{ detail.unit }}</div>
+                <div>View Graph <img src="../../assets/vector.svg"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <div class="section-title" *ngIf="plantSelected"> Notifications </div>
+    </div>
+</div>
