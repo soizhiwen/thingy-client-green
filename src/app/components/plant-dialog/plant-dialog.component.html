@@ -1,6 +1,8 @@
-<div mat-dialog-title class="title">Add Plant</div>
+<div mat-dialog-title class="title">{{ plantId == undefined ? 'Add Plant' : 'Update Plant' }}</div>
 <div mat-dialog-content>
-    <div class="subtitle">Create a new plant for the system</div>
+    <div class="subtitle">
+        {{ plantId == undefined ? 'Create a new plant for the system' : 'Update your plant'}}
+    </div>
     <form>
         <div *ngFor="let inputField of inputFields">
             <mat-form-field *ngIf="inputField.type != 'date'" class="input-field" [id]="'input-field-' + inputField.id">
@@ -22,6 +24,6 @@
 <mat-dialog-actions align="center">
     <button mat-raised-button mat-dialog-close class="dialog-button"
         (click)="plantId == undefined? addPlant() : editPlant()" [disabled]="isButtonDisabled()">
-        Add Plant
+        {{ plantId != undefined ? 'Update Plant' : 'Add Plant'}}
     </button>
 </mat-dialog-actions>

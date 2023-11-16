@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiActions, DashboardActions } from 'src/app/state/actions';
-import { ApiService } from 'src/app/api/api.service';
+import { GreenhouseService } from 'src/app/api/greenhouse.service';
 import { initialState } from './greenhouse.reducer';
 import { of } from 'rxjs';
 
@@ -11,7 +11,7 @@ export class GreenhouseEffects {
 
     constructor(
         private actions$: Actions,
-        private apiService: ApiService
+        private apiService: GreenhouseService
     ) { }
 
     loadGreenhouseData$ = createEffect(() => this.actions$.pipe(
