@@ -10,7 +10,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select'; 
 
 @NgModule({
   exports: [
@@ -26,6 +27,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

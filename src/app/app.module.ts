@@ -14,6 +14,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { GreenhouseEffects } from './state/greenhouse/greenhouse.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { PlantEffects } from './state/plant/plant.effects';
+import { userReducer } from './state/user/user.reducer';
+import { UserEffects } from './state/user/user.effects';
 
 @NgModule({
     declarations: [
@@ -30,10 +32,12 @@ import { PlantEffects } from './state/plant/plant.effects';
         StoreModule.forRoot({
             greenhouse: greenhouseReducer,
             plants: plantReducer,
+            users: userReducer,
         }),
         EffectsModule.forRoot([
             GreenhouseEffects,
-            PlantEffects
+            PlantEffects,
+            UserEffects
         ]),
         MaterialModule,
         StoreDevtoolsModule.instrument({
