@@ -10,9 +10,10 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   exports: [
@@ -30,6 +31,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatNativeDateModule,
     MatTabsModule,
     MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

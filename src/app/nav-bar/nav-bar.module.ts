@@ -8,6 +8,7 @@ import { PlantDialogComponent } from '../components/plant-dialog/plant-dialog.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PlantsComponent } from '../components/plants/plants.component';
 import { NotificationsComponent } from '../components/notifications/notifications.component';
+import { UserDialogComponent } from '../components/user-dialog/user-dialog.component';
 
 
 /** @title Sidenav open & close behavior */
@@ -25,7 +26,8 @@ import { NotificationsComponent } from '../components/notifications/notification
     UsersComponent,
     PlantsComponent,
     PlantDialogComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    UserDialogComponent,
   ]
 })
 

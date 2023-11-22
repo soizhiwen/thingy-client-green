@@ -1,0 +1,31 @@
+@import "../../../scss/_mixins.scss";
+@import "../../../scss/_variables.scss";
+
+.users {
+    padding-left: 50px;
+    padding-right: 50px;
+
+    .title {
+       @include page-title();
+    }
+
+    .subtitle {
+        @include subtitle();
+    }
+
+    .user-table {
+        @include table();
+    }
+
+    .add-user-button{
+        color: $cream;
+        background-color: $muddy-green;
+        font-size: 20px;
+        width: 156px;
+        height: 39px; 
+        font-weight: 500;
+        font-family: Inter;
+
+        margin-bottom: 40px;
+    }
+}

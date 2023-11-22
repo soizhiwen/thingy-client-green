@@ -1,0 +1,38 @@
+<div mat-dialog-title class="title">{{ userId == undefined ? 'Add User' : 'Update User' }}</div>
+<div mat-dialog-content>
+    <div class="subtitle">
+        {{ userId == undefined ? 'Create a new user for the system' : ''}}
+    </div>
+    <div>
+        <mat-form-field class="input-field">
+            <mat-label> User name</mat-label>
+            <input matInput [formControl]="userNameFormControl">
+            <mat-error *ngIf="userNameFormControl.hasError('required')">This Field is required.</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="input-field">
+            <mat-label> Email </mat-label>
+            <input matInput [formControl]="emailFormControl">
+            <mat-error *ngIf="emailFormControl.hasError('required')">This Field is required.</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field class="input-field">
+            <mat-label> Role </mat-label>
+            <mat-select [formControl]="RoleFormControl">
+                <mat-option value="Admin">Admin</mat-option>
+                <mat-option value="User">User</mat-option>
+            </mat-select>
+            <mat-error *ngIf="userNameFormControl.hasError('required')">This Field is required.</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-dialog-actions align="center">
+            <button mat-raised-button mat-dialog-close class="dialog-button"
+                (click)="userId == undefined? addUser() : editUser()" [disabled]="isButtonDisabled()">
+                {{ userId != undefined ? 'Update User' : 'Add User'}}
+            </button>
+        </mat-dialog-actions>
+    </div>
