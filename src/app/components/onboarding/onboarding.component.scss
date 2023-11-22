@@ -5,15 +5,14 @@ mat-drawer-container{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  width: 100%;
+  // width: 100%;
 
   .onboardingForm{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
+    width: 310px;
     height: 500px;
-
     .title{
       font-size: 20px;
       font-weight:900;
@@ -22,7 +21,7 @@ mat-drawer-container{
       margin: 30px;
     }
     .formField{
-      width: 100%;
+      width:300px;
     }
     .eyeIcon{
       color: $muddy-green;
@@ -32,7 +31,7 @@ mat-drawer-container{
 
       display: flex;
       justify-content: flex-end;
-      width: 100%;
+      width: 300px;
       margin-bottom: 20px;
     }
     .link:hover{
@@ -45,7 +44,7 @@ mat-drawer-container{
       font-size: 18px;
       font-weight:600;
 
-      width: 100%;
+      width: 300px;
       height: 40px;
     }
     .onboardOutlineButton{
@@ -56,7 +55,7 @@ mat-drawer-container{
       font-size: 18px;
       font-weight:600;
 
-      width: 100%;
+      width: 300px;
       height: 40px;
       display: flex;
       justify-content: center;
@@ -65,7 +64,7 @@ mat-drawer-container{
     }
 
     .googleIcon{
-      width: 7%;
+      width: 20px;
       height: auto;
     }
   }

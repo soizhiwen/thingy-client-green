@@ -38,22 +38,11 @@
       </div>
       <span class="spacer"></span>
       <button mat-icon-button *ngIf="mobile" >
-        <mat-icon class="notificationIcon" >search</mat-icon>
+        <mat-icon class="notificationIcon">search</mat-icon>
       </button>
-      <button mat-icon-button click.trigger="notificationsMenu" >
-        <mat-icon class="notificationIcon" matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+      <button mat-icon-button (click)="openNotificationsDialog()" >
+        <mat-icon class="notificationIcon" matBadge="15" matBadgeColor="warn" >notifications</mat-icon>
       </button>
-      <mat-menu  #menu="matMenu" class="notificationsMenu" >
-          <ng-template #notificationsMenu>
-            <div class="notificationsMenuHead">Notifications</div>
-            <button mat-icon-button>
-              <mat-icon class="notificationIcon" >close</mat-icon>
-            </button>
-            <mat-nav-list>
-             <mat-list-item >hiiiaha</mat-list-item>
-            </mat-nav-list>
-          </ng-template>
-      </mat-menu>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </div>

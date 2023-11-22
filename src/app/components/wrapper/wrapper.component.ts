@@ -1,5 +1,7 @@
 import { Component} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NotificationsComponent } from '../notifications/notifications.component';
 
 @Component({
   selector: 'app-wrapper',
@@ -20,7 +22,7 @@ export class WrapperComponent {
     {title:'Plants',iconName:'eco',path:'plants'},
   ]
 
-  constructor(private router: Router){
+  constructor(private router: Router,public dialog: MatDialog){
     this.router.events.subscribe(() =>this.getActivatedRoute() );
   }
 
@@ -31,10 +33,22 @@ export class WrapperComponent {
     }
   }
 
+
   getActivatedRoute(){
     this.activeRoute=this.router.url;
     this.activeRoute=this.activeRoute.split('/home/')[1];
   }
 
+  openNotificationsDialog(): void {
+    const dialogRef = this.dialog.open(NotificationsComponent ,{
+      backdropClass: 'dialogStyle',
+      position:{ top: '80px', right: '60px' },
+      width: '400px',
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
+
