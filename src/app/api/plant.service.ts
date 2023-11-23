@@ -12,21 +12,21 @@ export class PlantService {
     }
 
     addPlant(newPlant: Plant) {
-        return this.http.post(
+        return this.http.post<Plant>(
             'http://localhost:8080/plants/',
             newPlant
         );
     }
 
     updatePlant(plant: Plant) {
-        return this.http.patch(
+        return this.http.patch<Plant>(
             'http://localhost:8080/plants/' + plant.id,
             plant
         );
     }
 
     deletePlant(plantId: number) {
-        return this.http.delete(
+        return this.http.delete<number>(
             'http://localhost:8080/plants/' + plantId
         );
     }

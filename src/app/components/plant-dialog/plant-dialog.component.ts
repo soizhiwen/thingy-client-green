@@ -42,7 +42,7 @@ export class PlantDialogComponent implements OnInit {
         this.humidityFormControl.setValue(plant?.humidity ?? null);
         this.temperatureFormControl.setValue(plant?.temperature ?? null);
         this.co2FormControl.setValue(plant?.co2 ?? null);
-        this.airQualityFormControl.setValue(plant?.airQuality ?? null);
+        this.airQualityFormControl.setValue(plant?.air_quality ?? null);
       }
       ).unsubscribe()
     }
@@ -61,7 +61,7 @@ export class PlantDialogComponent implements OnInit {
         temperature: this.temperatureFormControl.value ?? 0,
         humidity: this.humidityFormControl.value ?? 0,
         co2: this.co2FormControl.value ?? 0,
-        airQuality: this.airQualityFormControl.value ?? 0,
+        air_quality: this.airQualityFormControl.value ?? 0,
       }
     }));
   }
@@ -75,7 +75,7 @@ export class PlantDialogComponent implements OnInit {
         temperature: this.temperatureFormControl.value ?? 0,
         humidity: this.humidityFormControl.value ?? 0,
         co2: this.co2FormControl.value ?? 0,
-        airQuality: this.airQualityFormControl.value ?? 0,
+        air_quality: this.airQualityFormControl.value ?? 0,
       }
     }));
   }

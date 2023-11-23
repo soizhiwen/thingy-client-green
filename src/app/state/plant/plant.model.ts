@@ -5,5 +5,5 @@ export interface Plant {
     temperature: number;
     humidity: number;
     co2: number;
-    airQuality: number;
+    air_quality: number;
 }

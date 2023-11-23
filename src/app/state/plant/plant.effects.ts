@@ -25,16 +25,31 @@ export class PlantEffects {
 
     addPlant$ = createEffect(() => this.actions$.pipe(
         ofType(PlantActions.addPlant),
-        tap(({ plant: newPlant }) => this.plantService.addPlant(newPlant))
-    ), { dispatch: false });
+        mergeMap(({ plant: newPlant }) => this.plantService.addPlant(newPlant)
+            .pipe(
+                map(plant => ApiActions.addedPlant({ plant: plant })),
+                catchError(() => of(ApiActions.errorOccured()))
+            )
+        )
+    ));
 
     updatePlant$ = createEffect(() => this.actions$.pipe(
         ofType(PlantActions.updatePlant),
-        tap(({ plant: plant }) => this.plantService.updatePlant(plant))
-    ), { dispatch: false });
+        mergeMap(({ plant: updatedPlant }) => this.plantService.updatePlant(updatedPlant)
+            .pipe(
+                map(plant => ApiActions.updatedPlant({ plant: plant })),
+                catchError(() => of(ApiActions.errorOccured()))
+            )
+        )
+    ));
 
     deletePlant$ = createEffect(() => this.actions$.pipe(
         ofType(PlantActions.deletePlant),
-        tap(({ plantId: id }) => this.plantService.deletePlant(id))
-    ), { dispatch: false });
+        mergeMap(({ plantId: id }) => this.plantService.deletePlant(id)
+            .pipe(
+                map(id => ApiActions.deletedPlant({ plantId: id })),
+                catchError(() => of(ApiActions.errorOccured()))
+            )
+        )
+    ));
 }
