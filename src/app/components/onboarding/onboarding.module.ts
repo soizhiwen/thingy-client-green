@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { OnboardingRoutingModule } from './onboarding-routing.module';
 import { OnboardingComponent } from './onboarding.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,6 +11,8 @@ import { OnboardingComponent } from './onboarding.component';
     OnboardingRoutingModule,
     MaterialModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     OnboardingComponent
@@ -17,5 +20,4 @@ import { OnboardingComponent } from './onboarding.component';
 })
 
 export class OnboardingModule  {
-
 }

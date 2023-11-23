@@ -1,52 +1,62 @@
 <mat-drawer-container class="container">
     <mat-tab-group>
       <mat-tab label="Login">
-        <div class="onboardingForm">
+        <form class="onboardingForm" [formGroup]="loginForm" (ngSubmit)="login()">
           <div class="title">Login to your account</div>
             <mat-form-field class="formField" appearance="outline" color="primary">
-              <input matInput type="email" placeholder="Email">
+              <input matInput type="email" placeholder="Email" formControlName="email" name="email" required>
+              <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid Email</mat-error>
             </mat-form-field>
             <mat-form-field class="formField" appearance="outline" color="primary">
-              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password">
-              <button mat-icon-button matSuffix (click)="hide = !hide"  [attr.aria-pressed]="hide">
-                <mat-icon class="eyeIcon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input matInput [type]="hide[0] ? 'password' : 'text'" placeholder="Password" formControlName="password" name="password">
+              <button mat-icon-button matSuffix (click)="hide[0] = !hide[0]"  [attr.aria-pressed]="hide[0]">
+                <mat-icon class="eyeIcon">{{hide[0] ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Password is required</mat-error>
             </mat-form-field>
             <div class="link"><a>Forgot Password?</a></div>
-            <button class="onboardButton" mat-raised-button (click)="login()">Login</button>
-            <button class="onboardOutlineButton" mat-raised-button (click)="login()">
+            <button class="onboardButton" mat-raised-button type="submit">Login</button>
+            <button class="onboardOutlineButton" mat-raised-button >
               <img class="googleIcon" src="../../../assets/google-icon.png" />
               Login with Google
             </button>
-        </div>
+          </form>
       </mat-tab>
       <mat-tab label="Signup">
-        <div class="onboardingForm">
+        <form class="onboardingForm" [formGroup]="registerForm" (ngSubmit)="signUp()">
           <div class="title">Create a new account</div>
             <mat-form-field class="formField" appearance="outline" color="primary">
-              <input matInput type="email" placeholder="Email">
+              <input matInput type="email" placeholder="Email" formControlName="email" name="email" required>
+              <mat-error *ngIf="registerForm.get('email')?.hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Enter a valid Email</mat-error>
             </mat-form-field>
             <mat-form-field class="formField" appearance="outline" color="primary">
-              <input matInput type="text" placeholder="User Name">
+              <input matInput type="text" placeholder="User Name" formControlName="userName" name="userName">
+              <mat-error *ngIf="registerForm.get('userName')?.hasError('required')">User Name is required</mat-error>
             </mat-form-field>
             <mat-form-field class="formField" appearance="outline" color="primary">
-              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password">
-              <button mat-icon-button matSuffix (click)="hide = !hide"  [attr.aria-pressed]="hide">
-                <mat-icon class="eyeIcon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input matInput [type]="hide[1] ? 'password' : 'text'" placeholder="Password" formControlName="password" name="password" required pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$">
+              <button mat-icon-button matSuffix (click)="hide[1] = !hide[1]"  [attr.aria-pressed]="hide[1]">
+                <mat-icon class="eyeIcon">{{hide[1] ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Password is required</mat-error>
+              <mat-error *ngIf="registerForm.get('password')?.hasError('pattern')">Enter a strong password</mat-error>
             </mat-form-field>
             <mat-form-field class="formField" appearance="outline" color="primary">
-              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm Password">
-              <button mat-icon-button matSuffix (click)="hide = !hide"  [attr.aria-pressed]="hide">
-                <mat-icon class="eyeIcon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input matInput [type]="hide[2] ? 'password' : 'text'" placeholder="Confirm Password" formControlName="confirmPassword" name="confirmPassword" required pattern="{{registerForm.value.password}}">
+              <button mat-icon-button matSuffix (click)="hide[2] = !hide[2]"  [attr.aria-pressed]="hide[2]">
+                <mat-icon class="eyeIcon">{{hide[2] ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
+              <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</mat-error>
+              <mat-error *ngIf="registerForm.value.confirmPassword">Passwords do not match.</mat-error>
             </mat-form-field>
-            <button class="onboardButton" mat-raised-button (click)="login()">Signup</button>
-            <button class="onboardOutlineButton" mat-raised-button (click)="login()">
+            <button class="onboardButton" mat-raised-button type="submit">Signup</button>
+            <button class="onboardOutlineButton" mat-raised-button >
               <img class="googleIcon" src="../../../assets/google-icon.png" />
               Signup with Google
             </button>
-        </div>
+        </form>
       </mat-tab>
     </mat-tab-group>
 </mat-drawer-container>
