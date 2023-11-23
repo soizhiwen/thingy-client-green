@@ -1,0 +1,62 @@
+@import "../../../scss/_variables.scss";
+
+.dialogHeader{
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.headerTitle{
+  color: $muddy-green;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+
+  margin-top: 10px;
+}
+
+.closeIcon{
+  color: $muddy-green;
+}
+
+.notificationItem{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  margin-top: 5px;
+}
+
+.notificationMessage{
+  white-space: initial;
+  margin: 0;
+  color: $muddy-green;
+  font-weight: 500;
+}
+
+.status{
+  color:white;
+
+  padding: 5px;
+  width:100px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 5px;
+  margin: 5px 0 5px 0;
+}
+
+.statusImmediate{
+  background-color: #DF4A4A;
+}
+.statusAverage{
+  background-color: #E5D53E;
+}
+.statusMild{
+  background-color: #2d822e;
+}
+
+.timeStamp{
+  color: $light-muddy-green;
+}

@@ -2,6 +2,7 @@ import { NavBarModule } from './nav-bar/nav-bar.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
+import { OnboardingModule } from './components/onboarding/onboarding.module';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
   },
   {
     path:'',
-    component:OnboardingComponent
+    loadChildren: () => OnboardingModule
   },
   {
     path: '**',
