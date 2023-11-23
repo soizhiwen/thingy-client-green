@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   currentPlants$: Observable<Plant[]> = this.store.select(selectPlants);
 
-  plantSelected = false;
+  plantSelected?: number = undefined;
 
   constructor(private store: Store) { }
 
@@ -32,6 +32,6 @@ export class DashboardComponent implements OnInit {
   }
 
   daysLeft(date: Date): number {
-    return Math.ceil((date.getTime() - Date.now()) / (1000 * 3600 * 24));
+    return Math.ceil((new Date(date).getTime() - Date.now()) / (1000 * 3600 * 24));
   }
 }
