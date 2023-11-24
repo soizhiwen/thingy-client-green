@@ -7,8 +7,15 @@ export const ApiActions = createActionGroup({
     source: 'Api',
     events: {
         'Received greenhouse data': props<{ greenhouse: Greenhouse }>(),
-        'Received plants': props<{ plants: Plant[] }>(),
         'Received users': props<{ users: User[] }>(),
+        'Added user': props<{ user: User }>(),
+        'Deleted user': props<{ userId: number }>(),
+        'updated user': props<{ user: User }>(),
+        'Received plants': props<{ plants: Plant[] }>(),
+        'Added plant': props<{ plant: Plant }>(),
+        'Deleted plant': props<{ plantId: number }>(),
+        'updated plant': props<{ plant: Plant }>(),
+        'error occured': emptyProps()
     },
 });
 

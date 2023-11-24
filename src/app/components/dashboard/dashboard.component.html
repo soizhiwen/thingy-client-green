@@ -8,15 +8,16 @@
         <div class="section-title"> Current Plants </div>
         <hr class="seperation-line">
 
-        <div class="cards" *ngFor="let plant of (currentPlants$ | async)">
-            <div class="plant-card" (click)="plantSelected = !plantSelected">
+        <div class="cards">
+            <div *ngFor="let plant of (currentPlants$ | async)" class="plant-card"
+                (click)="plantSelected = plantSelected == plant.id ? undefined : plant.id">
                 <div class="plant-name"> {{ plant.name }} </div>
                 <div *ngIf="plant.harvest_date != undefined"> {{ daysLeft(plant.harvest_date) + ' days more' }} </div>
             </div>
         </div>
     </div>
 
-    <div class="details" *ngIf="plantSelected">
+    <div class="details" *ngIf="plantSelected != undefined">
         <div class="section-title"> Details </div>
         <hr class="seperation-line">
 

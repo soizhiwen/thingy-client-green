@@ -12,21 +12,21 @@ export class UserService {
     }
 
     addUser(newUser: User) {
-        return this.http.post(
+        return this.http.post<User>(
             'http://localhost:8080/users/',
             newUser
         );
     }
 
     updateUser(user: User) {
-        return this.http.patch(
+        return this.http.patch<User>(
             'http://localhost:8080/users/' + user.id,
             user
         );
     }
 
     deleteUser(userId: number) {
-        return this.http.delete(
+        return this.http.delete<number>(
             'http://localhost:8080/users/' + userId
         );
     }

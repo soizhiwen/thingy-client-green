@@ -19,22 +19,37 @@ export class UserEffects {
         mergeMap(() => this.userService.getUsers()
             .pipe(
                 map(users => ApiActions.receivedUsers({ users: users })),
-                catchError(() => of(ApiActions.receivedUsers({ users: initialState })))
+                catchError(() => of(ApiActions.errorOccured()))
             ))
     ));
 
     addUser$ = createEffect(() => this.actions$.pipe(
         ofType(UserActions.addUser),
-        tap(({ user: newUser }) => this.userService.addUser(newUser))
-    ), { dispatch: false });
+        mergeMap(({ user: newUser }) => this.userService.addUser(newUser)
+            .pipe(
+                map(user => ApiActions.addedUser({ user: user })),
+                catchError(() => of(ApiActions.errorOccured()))
+            )
+        )
+    ));
 
     updateUser$ = createEffect(() => this.actions$.pipe(
         ofType(UserActions.updateUser),
-        tap(({ user: user }) => this.userService.updateUser(user))
-    ), { dispatch: false });
+        mergeMap(({ user: updatedUser }) => this.userService.updateUser(updatedUser)
+            .pipe(
+                map(user => ApiActions.updatedUser({ user: user })),
+                catchError(() => of(ApiActions.errorOccured()))
+            )
+        )
+    ));
 
     deleteUser$ = createEffect(() => this.actions$.pipe(
         ofType(UserActions.deleteUser),
-        tap(({ userId: id }) => this.userService.deleteUser(id))
-    ), { dispatch: false });
+        mergeMap(({ userId: id }) => this.userService.deleteUser(id)
+            .pipe(
+                map(id => ApiActions.deletedUser({ userId: id })),
+                catchError(() => of(ApiActions.errorOccured()))
+            )
+        )
+    ));
 }
