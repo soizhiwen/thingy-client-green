@@ -16,11 +16,11 @@ export class AuthService {
   }
 
   login(email:string,password:string): Observable<string>{
-    const something=  this.http.post<string>(
+    const token=  this.http.post<string>(
       'http://localhost:8080/users/login',
       {email,password}
   );
-  return something;
+  return token;
   }
 
 

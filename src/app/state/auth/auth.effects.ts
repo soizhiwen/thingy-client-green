@@ -17,7 +17,7 @@ export class AuthEffects {
   ) {}
 
   // on login, send auth data to backend,
-  // get the token and put into the store and cookies
+  // get the token and put into the store and local storage
   login$ = createEffect(() => {
     console.log("All the way here");
     return this.actions$.pipe(
