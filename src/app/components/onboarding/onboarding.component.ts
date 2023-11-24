@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AuthActions } from 'src/app/state/actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-onboarding',
@@ -14,7 +16,8 @@ export class OnboardingComponent {
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]) });
+    password: new FormControl('', [Validators.required])
+  });
 
   registerForm = new FormGroup({
     userName: new FormControl('', [ Validators.required]),
@@ -23,7 +26,7 @@ export class OnboardingComponent {
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: confirmPasswordValidator});
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private store: Store){}
 
   signUp(){
     if (this.registerForm.invalid) {
@@ -36,7 +39,8 @@ export class OnboardingComponent {
     if (this.loginForm.invalid) {
       return;
     }
-    this.router.navigate([ '/home/dashboard' ]);
+    this.store.dispatch(AuthActions.login({ email:this.loginForm.value.email??'',password:this.loginForm.value.password??'' }));
+    // this.router.navigate([ '/home/dashboard' ]);
   }
 }
 

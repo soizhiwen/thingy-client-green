@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { PlantEffects } from './state/plant/plant.effects';
 import { userReducer } from './state/user/user.reducer';
 import { UserEffects } from './state/user/user.effects';
+import { authReducer } from './state/auth/auth.reducer';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { UserEffects } from './state/user/user.effects';
             greenhouse: greenhouseReducer,
             plants: plantReducer,
             users: userReducer,
+            auth: authReducer
         }),
         EffectsModule.forRoot([
             GreenhouseEffects,
