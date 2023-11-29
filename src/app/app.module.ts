@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { greenhouseReducer } from './state/greenhouse/greenhouse.reducer';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { plantReducer } from './state/plant/plant.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { GreenhouseEffects } from './state/greenhouse/greenhouse.effects';
@@ -20,6 +20,7 @@ import { authReducer } from './state/auth/auth.reducer';
 import { AuthEffects } from './state/auth/auth.effects';
 import { AuthService } from './api/auth.service';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { AuthInterceptor } from './api/auth-interceptor';
 
 @NgModule({
     declarations: [
@@ -27,9 +28,15 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
         DashboardComponent
     ],
     providers: [
-      AuthService,
-      { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-      JwtHelperService
+        AuthService,
+        AuthInterceptor,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useExisting: AuthInterceptor,
+            multi: true
+        },
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+        JwtHelperService
     ],
     bootstrap: [AppComponent],
     imports: [
