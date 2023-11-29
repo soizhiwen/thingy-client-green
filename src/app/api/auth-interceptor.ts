@@ -6,20 +6,18 @@ import { selectToken } from "../state/auth/auth.selectors";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    private idToken: string | undefined;
-    constructor(private store: Store) {
-        this.store.select(selectToken).subscribe(token => this.idToken = token);
-    }
 
     intercept(
         req: HttpRequest<any>,
         next: HttpHandler,
     ): Observable<HttpEvent<any>> {
-        if (this.idToken) {
+        const idToken = localStorage.getItem("token")
+        if (idToken) {
             const cloned = req.clone({
                 headers: req.headers.set("authorization",
-                    this.idToken)
+                    idToken)
             });
+
             return next.handle(cloned);
         }
         else {
