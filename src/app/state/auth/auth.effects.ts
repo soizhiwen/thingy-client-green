@@ -19,14 +19,32 @@ export class AuthEffects {
   // on login, send auth data to backend,
   // get the token and put into the store and local storage
   login$ = createEffect(() => {
-    console.log("All the way here");
     return this.actions$.pipe(
       ofType(AuthActions.login),
       mergeMap(({ email, password }) => {
         return this.authService.login(email, password).pipe(
-          tap((token ) => localStorage.setItem("token", token)),
+          tap((token ) => {
+            localStorage.setItem("token", token);
+            this.router.navigateByUrl("/home/dashboard");
+          }),
           map((token ) => AuthActions.setToken({ token })),
           catchError(() => of(AuthActions.loginError({ message: "Login failed" })))
+        );
+      })
+    );
+  });
+
+  signUp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AuthActions.signUp),
+      mergeMap(({ email, password,name }) => {
+        return this.authService.signUp(email, password,name).pipe(
+          tap((token ) => {
+            localStorage.setItem("token", token);
+            this.router.navigateByUrl("/home/dashboard");
+          }),
+          map((token ) => AuthActions.setToken({ token })),
+          catchError(() => of(AuthActions.loginError({ message: "SignUp failed" })))
         );
       })
     );

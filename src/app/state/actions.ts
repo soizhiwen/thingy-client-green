@@ -55,6 +55,7 @@ export const AuthActions = createActionGroup({
       'Remove Token': emptyProps(),
       'Login': props<{ email: string; password: string }>(),
       'LoginError': props<{ message: string }>(),
-      'Log Out': emptyProps()
+      'Log Out': emptyProps(),
+      'SignUp': props<{ email: string; password: string, name: string }>(),
   },
 });

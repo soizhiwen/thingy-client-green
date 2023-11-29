@@ -32,7 +32,7 @@ export class OnboardingComponent {
     if (this.registerForm.invalid) {
       return;
     }
-    this.router.navigate([ '/home/dashboard' ]);
+    this.store.dispatch(AuthActions.signUp({ email:this.registerForm.value.email??'',password:this.registerForm.value.password??'',name:this.registerForm.value.userName??'' }));
   }
 
   login(){
@@ -44,11 +44,12 @@ export class OnboardingComponent {
   }
 }
 
-export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-
-  return password && confirmPassword && password.value === confirmPassword.value ? { confirmPassword: true } : null;
+export const confirmPasswordValidator: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
+  return control.value.password === control.value.confirmPassword
+    ? null
+    : { PasswordNoMatch: true };
 };
 
 

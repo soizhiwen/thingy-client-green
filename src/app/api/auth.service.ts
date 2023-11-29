@@ -17,8 +17,16 @@ export class AuthService {
 
   login(email:string,password:string): Observable<string>{
     const token=  this.http.post<string>(
-      'http://localhost:8080/users/login',
+      'http://localhost:8080/login',
       {email,password}
+  );
+  return token;
+  }
+
+  signUp(email:string,password:string,name:string): Observable<string>{
+    const token=  this.http.post<string>(
+      'http://localhost:8080/register',
+      {email,password,name,role:'Admin'}
   );
   return token;
   }
