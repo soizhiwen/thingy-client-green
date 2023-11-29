@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AuthActions } from 'src/app/state/actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-onboarding',
@@ -14,7 +16,8 @@ export class OnboardingComponent {
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]) });
+    password: new FormControl('', [Validators.required])
+  });
 
   registerForm = new FormGroup({
     userName: new FormControl('', [ Validators.required]),
@@ -23,28 +26,30 @@ export class OnboardingComponent {
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: confirmPasswordValidator});
 
-  constructor(private router:Router){}
+  constructor(private router:Router,private store: Store){}
 
   signUp(){
     if (this.registerForm.invalid) {
       return;
     }
-    this.router.navigate([ '/home/dashboard' ]);
+    this.store.dispatch(AuthActions.signUp({ email:this.registerForm.value.email??'',password:this.registerForm.value.password??'',name:this.registerForm.value.userName??'' }));
   }
 
   login(){
     if (this.loginForm.invalid) {
       return;
     }
-    this.router.navigate([ '/home/dashboard' ]);
+    this.store.dispatch(AuthActions.login({ email:this.loginForm.value.email??'',password:this.loginForm.value.password??'' }));
+    // this.router.navigate([ '/home/dashboard' ]);
   }
 }
 
-export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-
-  return password && confirmPassword && password.value === confirmPassword.value ? { confirmPassword: true } : null;
+export const confirmPasswordValidator: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
+  return control.value.password === control.value.confirmPassword
+    ? null
+    : { PasswordNoMatch: true };
 };
 
 

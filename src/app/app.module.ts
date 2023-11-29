@@ -16,13 +16,21 @@ import { EffectsModule } from '@ngrx/effects';
 import { PlantEffects } from './state/plant/plant.effects';
 import { userReducer } from './state/user/user.reducer';
 import { UserEffects } from './state/user/user.effects';
+import { authReducer } from './state/auth/auth.reducer';
+import { AuthEffects } from './state/auth/auth.effects';
+import { AuthService } from './api/auth.service';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
     declarations: [
         AppComponent,
         DashboardComponent
     ],
-    providers: [],
+    providers: [
+      AuthService,
+      { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+      JwtHelperService
+    ],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
@@ -33,11 +41,13 @@ import { UserEffects } from './state/user/user.effects';
             greenhouse: greenhouseReducer,
             plants: plantReducer,
             users: userReducer,
+            auth: authReducer
         }),
         EffectsModule.forRoot([
             GreenhouseEffects,
             PlantEffects,
-            UserEffects
+            UserEffects,
+            AuthEffects
         ]),
         MaterialModule,
         StoreDevtoolsModule.instrument({

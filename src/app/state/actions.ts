@@ -45,3 +45,17 @@ export const UserActions = createActionGroup({
         'Delete user': props<{ userId: number }>()
     },
 });
+
+export const AuthActions = createActionGroup({
+  source: 'Auth',
+  events: {
+      'Set Token': props<{ token: string }>(),
+      'Set user': props<{ user: User }>(),
+      'Set user Error': props<{message: string}>(),
+      'Remove Token': emptyProps(),
+      'Login': props<{ email: string; password: string }>(),
+      'LoginError': props<{ message: string }>(),
+      'Log Out': emptyProps(),
+      'SignUp': props<{ email: string; password: string, name: string }>(),
+  },
+});
