@@ -5,6 +5,7 @@ import { AuthActions } from "../actions";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { AuthService } from "src/app/api/auth.service";
+import { HttpResponse } from "@angular/common/http";
 
 
 @Injectable()
@@ -14,7 +15,7 @@ export class AuthEffects {
     private readonly actions$: Actions,
     private readonly authService: AuthService,
     private readonly router: Router,
-  ) {}
+  ) { }
 
   // on login, send auth data to backend,
   // get the token and put into the store and local storage
@@ -23,11 +24,14 @@ export class AuthEffects {
       ofType(AuthActions.login),
       mergeMap(({ email, password }) => {
         return this.authService.login(email, password).pipe(
-          tap((token ) => {
+          map((response: HttpResponse<string>) => {
+            return response.headers.get("Authorization") ?? ''
+          }),
+          tap((token: string) => {
             localStorage.setItem("token", token);
             this.router.navigateByUrl("/home/dashboard");
           }),
-          map((token ) => AuthActions.setToken({ token })),
+          map((token) => AuthActions.setToken({ token })),
           catchError(() => of(AuthActions.loginError({ message: "Login failed" })))
         );
       })
@@ -37,13 +41,16 @@ export class AuthEffects {
   signUp$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.signUp),
-      mergeMap(({ email, password,name }) => {
-        return this.authService.signUp(email, password,name).pipe(
-          tap((token ) => {
+      mergeMap(({ email, password, name }) => {
+        return this.authService.signUp(email, password, name).pipe(
+          map((response: HttpResponse<string>) => {
+            return response.headers.get("Authorization") ?? ''
+          }),
+          tap((token) => {
             localStorage.setItem("token", token);
             this.router.navigateByUrl("/home/dashboard");
           }),
-          map((token ) => AuthActions.setToken({ token })),
+          map((token) => AuthActions.setToken({ token })),
           catchError(() => of(AuthActions.loginError({ message: "SignUp failed" })))
         );
       })
