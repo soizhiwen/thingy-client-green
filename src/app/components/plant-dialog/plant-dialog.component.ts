@@ -17,19 +17,23 @@ import { selectPlantOfId } from 'src/app/state/plant/plant.selectors';
 export class PlantDialogComponent implements OnInit {
   plantFormControl = new FormControl('', [Validators.required]);
   dateFormControl = new FormControl<Date | null>(new Date());
-  humidityFormControl = new FormControl<number | null>(null, [Validators.required]);
-  temperatureFormControl = new FormControl<number | null>(null, [Validators.required]);
-  co2FormControl = new FormControl<number | null>(null, [Validators.required]);
-  airQualityFormControl = new FormControl<number | null>(null, [Validators.required]);
+
+  minHumidityFormControl = new FormControl<number | null>(null, [Validators.required]);
+  minTemperatureFormControl = new FormControl<number | null>(null, [Validators.required]);
+  minCo2FormControl = new FormControl<number | null>(null, [Validators.required]);
+  minAirQualityFormControl = new FormControl<number | null>(null, [Validators.required]);
+
+  maxHumidityFormControl = new FormControl<number | null>(null, [Validators.required]);
+  maxTemperatureFormControl = new FormControl<number | null>(null, [Validators.required]);
+  maxCo2FormControl = new FormControl<number | null>(null, [Validators.required]);
+  maxAirQualityFormControl = new FormControl<number | null>(null, [Validators.required]);
 
 
-  inputFields = [
-    { id: 'name', placeholder: 'Plant name', formControl: this.plantFormControl, type: 'text' },
-    { id: 'harvest-time', placeholder: 'Expected Harvest time', formControl: this.dateFormControl, type: 'date' },
-    { id: 'humidiy', placeholder: 'Humidity', formControl: this.humidityFormControl, type: 'number' },
-    { id: 'temperature', placeholder: 'Temperature', formControl: this.temperatureFormControl, type: 'number' },
-    { id: 'co2', placeholder: 'C02 Level', formControl: this.co2FormControl, type: 'number' },
-    { id: 'air-quality', placeholder: 'Air Quality', formControl: this.airQualityFormControl, type: 'number' }
+  rangeFields = [
+    { id: 'humidiy', placeholder: 'Humidity', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] },
+    { id: 'temperature', placeholder: 'Temperature', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] },
+    { id: 'co2', placeholder: 'C02 Level', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] },
+    { id: 'air-quality', placeholder: 'Air Quality', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] }
   ]
 
   constructor(private store: Store, @Inject(MAT_DIALOG_DATA) public plantId?: number) { }
@@ -39,10 +43,14 @@ export class PlantDialogComponent implements OnInit {
       this.store.select(selectPlantOfId(this.plantId)).subscribe((plant?: Plant) => {
         this.plantFormControl.setValue(plant?.name ?? '');
         this.dateFormControl.setValue(plant?.harvest_date ?? null);
-        this.humidityFormControl.setValue(plant?.humidity ?? null);
-        this.temperatureFormControl.setValue(plant?.temperature ?? null);
-        this.co2FormControl.setValue(plant?.co2 ?? null);
-        this.airQualityFormControl.setValue(plant?.air_quality ?? null);
+        this.minHumidityFormControl.setValue(plant?.min_humidity ?? null);
+        this.minTemperatureFormControl.setValue(plant?.min_temperature ?? null);
+        this.minCo2FormControl.setValue(plant?.min_co2 ?? null);
+        this.minAirQualityFormControl.setValue(plant?.min_air_quality ?? null);
+        this.maxHumidityFormControl.setValue(plant?.max_humidity ?? null);
+        this.maxTemperatureFormControl.setValue(plant?.max_temperature ?? null);
+        this.maxCo2FormControl.setValue(plant?.max_co2 ?? null);
+        this.maxAirQualityFormControl.setValue(plant?.max_air_quality ?? null);
       }
       ).unsubscribe()
     }
@@ -58,10 +66,14 @@ export class PlantDialogComponent implements OnInit {
         id: undefined,
         name: this.plantFormControl.value ?? '',
         harvest_date: this.dateFormControl.value ?? undefined,
-        temperature: this.temperatureFormControl.value ?? 0,
-        humidity: this.humidityFormControl.value ?? 0,
-        co2: this.co2FormControl.value ?? 0,
-        air_quality: this.airQualityFormControl.value ?? 0,
+        min_temperature: this.minTemperatureFormControl.value ?? 0,
+        min_humidity: this.minHumidityFormControl.value ?? 0,
+        min_co2: this.minCo2FormControl.value ?? 0,
+        min_air_quality: this.minAirQualityFormControl.value ?? 0,
+        max_temperature: this.maxTemperatureFormControl.value ?? 0,
+        max_humidity: this.maxHumidityFormControl.value ?? 0,
+        max_co2: this.maxCo2FormControl.value ?? 0,
+        max_air_quality: this.maxAirQualityFormControl.value ?? 0,
       }
     }));
   }
@@ -72,19 +84,26 @@ export class PlantDialogComponent implements OnInit {
         id: this.plantId,
         name: this.plantFormControl.value ?? '',
         harvest_date: this.dateFormControl.value ?? undefined,
-        temperature: this.temperatureFormControl.value ?? 0,
-        humidity: this.humidityFormControl.value ?? 0,
-        co2: this.co2FormControl.value ?? 0,
-        air_quality: this.airQualityFormControl.value ?? 0,
+        min_temperature: this.minTemperatureFormControl.value ?? 0,
+        min_humidity: this.minHumidityFormControl.value ?? 0,
+        min_co2: this.minCo2FormControl.value ?? 0,
+        min_air_quality: this.minAirQualityFormControl.value ?? 0,
+        max_temperature: this.maxTemperatureFormControl.value ?? 0,
+        max_humidity: this.maxHumidityFormControl.value ?? 0,
+        max_co2: this.maxCo2FormControl.value ?? 0,
+        max_air_quality: this.maxAirQualityFormControl.value ?? 0,
       }
     }));
   }
 
   isButtonDisabled(): boolean {
-    for (const inputField of this.inputFields) {
-      if (inputField.formControl.hasError('required'))
+    for (const inputField of this.rangeFields) {
+      if (
+        inputField.formControls[0].hasError('required')
+        || inputField.formControls[1].hasError('required')
+      )
         return true;
     }
-    return false;
+    return this.plantFormControl.hasError('required');
   }
 }
