@@ -31,9 +31,9 @@ export class PlantDialogComponent implements OnInit {
 
   rangeFields = [
     { id: 'humidiy', placeholder: 'Humidity', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] },
-    { id: 'temperature', placeholder: 'Temperature', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] },
-    { id: 'co2', placeholder: 'C02 Level', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] },
-    { id: 'air-quality', placeholder: 'Air Quality', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] }
+    { id: 'temperature', placeholder: 'Temperature', formControls: [this.minTemperatureFormControl, this.maxTemperatureFormControl] },
+    { id: 'co2', placeholder: 'C02 Level', formControls: [this.minCo2FormControl, this.maxCo2FormControl] },
+    { id: 'air-quality', placeholder: 'Air Quality', formControls: [this.minAirQualityFormControl, this.maxAirQualityFormControl] }
   ]
 
   constructor(private store: Store, @Inject(MAT_DIALOG_DATA) public plantId?: number) { }
