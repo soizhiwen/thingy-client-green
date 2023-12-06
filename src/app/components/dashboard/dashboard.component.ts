@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
   currentPlants$: Observable<Plant[]> = this.store.select(selectPlants);
 
   plantSelected?: number = undefined;
+  notificationColumns = ['notification', 'time'];
+  notificationData = [{ message: 'Plant is too humid', timeStamp: Date.now() }, { message: 'Plant is too cold', timeStamp: Date.now() }]
 
   constructor(private store: Store) { }
 

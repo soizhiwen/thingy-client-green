@@ -35,4 +35,22 @@
     <div>
         <div class="section-title" *ngIf="plantSelected"> Notifications </div>
     </div>
+
+    <mat-table class="notification-table" *ngIf="plantSelected != undefined" [dataSource]="notificationData">
+
+        <ng-container matColumnDef="notification">
+            <mat-header-cell *matHeaderCellDef> Notification </mat-header-cell>
+            <mat-cell *matCellDef="let notification"> {{ notification.message }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+            <mat-header-cell *matHeaderCellDef> Date and Time </mat-header-cell>
+            <mat-cell *matCellDef="let notification"> {{ notification.timeStamp | date : 'd.M.yyyy, h:mm a' }}
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="notificationColumns" class="header-row"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: notificationColumns" class="table-row"></mat-row>
+
+    </mat-table>
 </div>

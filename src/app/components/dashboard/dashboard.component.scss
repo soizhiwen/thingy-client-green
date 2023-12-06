@@ -3,6 +3,8 @@
 
 .dashboard {
     padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 100px;
 
     .title {
        @include page-title();
@@ -13,7 +15,7 @@
     }
 
     .seperation-line {
-        width: 1068px;
+        width: 100%;
         color: $muddy-green;
         margin-left: 0;
     }
@@ -25,9 +27,9 @@
         font-weight: 600;
         line-height: normal; 
     }
-        .cards {
-            @include cards();
-
+    .cards {
+        @include cards();
+        
         .plant-card {
             @include card();
             color: $muddy-green;
@@ -62,6 +64,11 @@
                 font-weight: 600;
                 line-height: normal; 
             }
-        }
+        } 
+    }
+
+    .notification-table {
+        @include table();
+        padding-top: 8px;
     }
 }
