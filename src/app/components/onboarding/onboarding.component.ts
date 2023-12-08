@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthActions } from 'src/app/state/actions';
 import { Store } from '@ngrx/store';
+import { selectLoginError } from 'src/app/state/auth/auth.selectors';
 
 @Component({
   selector: 'app-onboarding',
@@ -26,6 +27,8 @@ export class OnboardingComponent {
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: confirmPasswordValidator});
 
+  loginError$ = this.store.select(selectLoginError);
+  
   constructor(private router:Router,private store: Store){}
 
   signUp(){

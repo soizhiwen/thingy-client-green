@@ -1,6 +1,5 @@
 import { User } from "../user/user.model";
 
-export interface Auth{
-  token:string;
-  user:User;
+export interface Auth {
+  loginError: string;
 }

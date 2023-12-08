@@ -33,7 +33,7 @@ export class AuthEffects {
             this.router.navigateByUrl("/home/dashboard");
           }),
           map((token) => AuthActions.setToken({ token })),
-          catchError((x) => of(AuthActions.loginError({ message: x.body })))
+          catchError((x) => of(AuthActions.loginError({ message: x.body, status: x.status })))
         );
       })
     );
@@ -44,15 +44,13 @@ export class AuthEffects {
       ofType(AuthActions.signUp),
       mergeMap(({ email, password, name }) => {
         return this.authService.signUp(email, password, name).pipe(
-          map((response: HttpResponse<string>) => {
-            return response.headers.get("Authorization") ?? ''
-          }),
-          tap((token) => {
-            localStorage.setItem("token", token);
+          tap((response) => {
+            localStorage.setItem("token", response.headers.get("Authorization") ?? '');
+            localStorage.setItem("userId", JSON.stringify(response.body));
             this.router.navigateByUrl("/home/dashboard");
           }),
-          map((token) => AuthActions.setToken({ token })),
-          catchError(() => of(AuthActions.loginError({ message: "SignUp failed" })))
+          map(() => AuthActions.loggedIn()),
+          catchError((x) => of(AuthActions.loginError({ message: "SignUp failed", status: x.status })))
         );
       })
     );

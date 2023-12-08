@@ -5,17 +5,12 @@ import { AuthActions } from "../actions";
 
 
 const initialState: Auth = {
-  token: "",
-  user: {
-    name: 'User',
-    role: 'User',
-    email: 'email@email.com'
-  },
+  loginError: ''
 };
 
 export const authReducer = createReducer(
   initialState,
-  on(AuthActions.setToken, (state, { token }): Auth => ({ ...state, token })),
-  on(AuthActions.removeToken, (state): Auth => ({ ...state, token: "" })),
-  on(AuthActions.setUser, (state, { user }): Auth => ({ ...state, user }))
+  on(AuthActions.loginError, (state, { status }): Auth => (
+    { ...state, loginError: status == 404 ? 'Wrong user name or password.' : 'User already exists.' }
+  )),
 );
