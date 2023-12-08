@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { AuthService } from "src/app/api/auth.service";
 import { HttpResponse } from "@angular/common/http";
+import { authGuard } from "src/app/auth/auth-guard.service";
 
 
 @Injectable()
@@ -32,7 +33,7 @@ export class AuthEffects {
             this.router.navigateByUrl("/home/dashboard");
           }),
           map((token) => AuthActions.setToken({ token })),
-          catchError(() => of(AuthActions.loginError({ message: "Login failed" })))
+          catchError((x) => of(AuthActions.loginError({ message: x.body })))
         );
       })
     );
@@ -64,6 +65,18 @@ export class AuthEffects {
         tap(() => {
           localStorage.removeItem("token");
           this.router.navigateByUrl("");
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  loginError$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.loginError),
+        tap(() => {
+          localStorage.removeItem("token");
         })
       );
     },
