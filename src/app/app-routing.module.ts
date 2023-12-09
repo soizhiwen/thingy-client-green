@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
 import { OnboardingModule } from './components/onboarding/onboarding.module';
+import { authGuard } from './auth/auth-guard.service';
 
 const routes: Routes = [
   {
-    path:'home',
-    loadChildren: () => NavBarModule
+    path: 'home',
+    loadChildren: () => NavBarModule,
+    canActivate: [authGuard],
   },
   {
-    path:'',
+    path: '',
     loadChildren: () => OnboardingModule
   },
   {

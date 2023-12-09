@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, ROOT_EFFECTS_INIT, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, mergeMap, tap } from "rxjs/operators";
-import { AuthActions } from "../actions";
+import { ApiActions, AuthActions, UserActions } from "../actions";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { AuthService } from "src/app/api/auth.service";
 import { HttpResponse } from "@angular/common/http";
+import { authGuard } from "src/app/auth/auth-guard.service";
 
 
 @Injectable()
@@ -24,15 +25,13 @@ export class AuthEffects {
       ofType(AuthActions.login),
       mergeMap(({ email, password }) => {
         return this.authService.login(email, password).pipe(
-          map((response: HttpResponse<string>) => {
-            return response.headers.get("Authorization") ?? ''
-          }),
-          tap((token: string) => {
-            localStorage.setItem("token", token);
+          tap((response) => {
+            localStorage.setItem("token", response.headers.get("Authorization") ?? '');
+            localStorage.setItem("userId", JSON.stringify(response.body?.id));
             this.router.navigateByUrl("/home/dashboard");
           }),
-          map((token) => AuthActions.setToken({ token })),
-          catchError(() => of(AuthActions.loginError({ message: "Login failed" })))
+          map(() => AuthActions.loggedIn()),
+          catchError((x) => of(AuthActions.loginError({ message: x.body, status: x.status })))
         );
       })
     );
@@ -43,15 +42,13 @@ export class AuthEffects {
       ofType(AuthActions.signUp),
       mergeMap(({ email, password, name }) => {
         return this.authService.signUp(email, password, name).pipe(
-          map((response: HttpResponse<string>) => {
-            return response.headers.get("authorization") ?? '';
-          }),
-          tap((token) => {
-            localStorage.setItem("token", token);
+          tap((response) => {
+            localStorage.setItem("token", response.headers.get("Authorization") ?? '');
+            localStorage.setItem("userId", JSON.stringify(response.body?.id));
             this.router.navigateByUrl("/home/dashboard");
           }),
-          map((token) => AuthActions.setToken({ token })),
-          catchError(() => of(AuthActions.loginError({ message: "SignUp failed" })))
+          map(() => AuthActions.loggedIn()),
+          catchError((x) => of(AuthActions.loginError({ message: "SignUp failed", status: x.status })))
         );
       })
     );
@@ -63,25 +60,28 @@ export class AuthEffects {
         ofType(AuthActions.logOut),
         tap(() => {
           localStorage.removeItem("token");
+          localStorage.removeItem("userId");
           this.router.navigateByUrl("");
+        }),
+        map(() => AuthActions.setUser({ userId: undefined }))
+      );
+    },
+  );
+
+  loginError$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.loginError),
+        tap(() => {
+          localStorage.removeItem("token");
         })
       );
     },
     { dispatch: false }
   );
 
-  //get token from the local storage and set
-  // init$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(ROOT_EFFECTS_INIT),
-  //     mergeMap(({ email, password }) => {
-  //       return this.authService.getCurrentUser().pipe(
-  //         map(({ token }) => AuthActions.setUser({ user })),
-  //         catchError(() => of(AuthActions.setUserError({ message: "Error" })))
-  //       );
-  //     })
-  //   );
-  // });
-
-
+  init$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.loggedIn, ROOT_EFFECTS_INIT),
+    map(() => AuthActions.setUser({ userId: this.authService.getCurrentUserId() }))
+  ));
 }

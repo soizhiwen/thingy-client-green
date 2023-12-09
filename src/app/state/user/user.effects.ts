@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { ApiActions, UserActions } from 'src/app/state/actions';
+import { ApiActions, AuthActions, UserActions } from 'src/app/state/actions';
 import { UserService } from 'src/app/api/user.service';
 import { initialState } from './user.reducer';
 
@@ -15,7 +15,7 @@ export class UserEffects {
     ) { }
 
     loadUsers$ = createEffect(() => this.actions$.pipe(
-        ofType(UserActions.loadUsers),
+        ofType(UserActions.loadUsers, AuthActions.loggedIn),
         mergeMap(() => this.userService.getUsers()
             .pipe(
                 map(users => ApiActions.receivedUsers({ users: users })),

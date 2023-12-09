@@ -18,7 +18,7 @@
         </mat-list-item>
       </mat-nav-list>
       <div class="navFooter">
-        <button *ngIf="isExpanded" mat-raised-button class="logoutButton">Logout</button>
+        <button *ngIf="isExpanded" mat-raised-button class="logoutButton" (click)="logOut()">Logout</button>
         <div *ngIf="!isExpanded" mat-raised-button class="logoutButtonSmall"><mat-icon  class="logoutIcon">power_settings_new</mat-icon></div>
       </div>
     </div>
