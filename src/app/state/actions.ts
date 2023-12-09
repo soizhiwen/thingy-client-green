@@ -50,7 +50,7 @@ export const AuthActions = createActionGroup({
     source: 'Auth',
     events: {
         'Set Token': props<{ token: string }>(),
-        'Set user': props<{ user: User }>(),
+        'Set user': props<{ userId?: number }>(),
         'Set user Error': props<{ message: string }>(),
         'Remove Token': emptyProps(),
         'Login': props<{ email: string; password: string }>(),
