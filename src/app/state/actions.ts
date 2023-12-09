@@ -47,15 +47,16 @@ export const UserActions = createActionGroup({
 });
 
 export const AuthActions = createActionGroup({
-  source: 'Auth',
-  events: {
-      'Set Token': props<{ token: string }>(),
-      'Set user': props<{ user: User }>(),
-      'Set user Error': props<{message: string}>(),
-      'Remove Token': emptyProps(),
-      'Login': props<{ email: string; password: string }>(),
-      'LoginError': props<{ message: string }>(),
-      'Log Out': emptyProps(),
-      'SignUp': props<{ email: string; password: string, name: string }>(),
-  },
+    source: 'Auth',
+    events: {
+        'Set Token': props<{ token: string }>(),
+        'Set user': props<{ userId?: number }>(),
+        'Set user Error': props<{ message: string }>(),
+        'Remove Token': emptyProps(),
+        'Login': props<{ email: string; password: string }>(),
+        'LoginError': props<{ message: string, status: number }>(),
+        'Log Out': emptyProps(),
+        'SignUp': props<{ email: string; password: string, name: string }>(),
+        'Logged in': emptyProps(),
+    },
 });

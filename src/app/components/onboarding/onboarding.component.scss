@@ -27,11 +27,8 @@ mat-drawer-container{
     .eyeIcon{
       color: $muddy-green;
     }
-    .link{
-      color: $muddy-green;
-
-      display: flex;
-      justify-content: flex-end;
+    .err{
+      margin-left: 20px;
       width: 300px;
       margin-bottom: 20px;
     }

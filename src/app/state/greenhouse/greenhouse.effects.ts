@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, ROOT_EFFECTS_INIT, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { ApiActions, DashboardActions } from 'src/app/state/actions';
+import { ApiActions, AuthActions, DashboardActions } from 'src/app/state/actions';
 import { GreenhouseService } from 'src/app/api/greenhouse.service';
 import { initialState } from './greenhouse.reducer';
 import { of } from 'rxjs';
@@ -15,7 +15,7 @@ export class GreenhouseEffects {
     ) { }
 
     loadGreenhouseData$ = createEffect(() => this.actions$.pipe(
-        ofType(DashboardActions.loadGreenhouseData),
+        ofType(DashboardActions.loadGreenhouseData, AuthActions.loggedIn),
         mergeMap(() => this.apiService.getGreenhouseData()
             .pipe(
                 map(greenhouseData => ApiActions.receivedGreenhouseData({ greenhouse: greenhouseData })),
