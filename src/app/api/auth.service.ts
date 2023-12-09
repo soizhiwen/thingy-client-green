@@ -30,6 +30,13 @@ export class AuthService {
       { email, password, name, role: 'Admin' },
       { observe: 'response' }
     );
+    // ).subscribe(resp=>{
+    //   console.log(resp.headers.get('authorization'));
+    //   // And access the body directly, which is typed as MyJsonData as requested.
+    //   console.log(resp.body);
+    // });
+
+
     return response;
   }
 

@@ -2,6 +2,10 @@ import { Component} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { State, Store } from '@ngrx/store';
+import { select } from '@ngrx/store';
+import { take } from 'rxjs/operators';
+import { NotificationActions } from 'src/app/state/actions';
 
 @Component({
   selector: 'app-wrapper',
@@ -22,7 +26,7 @@ export class WrapperComponent {
     {title:'Plants',iconName:'eco',path:'plants'},
   ]
 
-  constructor(private router: Router,public dialog: MatDialog){
+  constructor(private router: Router,public dialog: MatDialog,private store: Store){
     this.router.events.subscribe(() =>this.getActivatedRoute() );
   }
 
@@ -31,8 +35,14 @@ export class WrapperComponent {
       this.mobile = true;
       this.sidenavOpened=false;
     }
+    this.store.dispatch(NotificationActions.loadNotifications());
   }
 
+  // getValues(){
+
+  //   this.store.select();
+
+  // }
 
   getActivatedRoute(){
     this.activeRoute=this.router.url;

@@ -21,6 +21,8 @@ import { AuthEffects } from './state/auth/auth.effects';
 import { AuthService } from './api/auth.service';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './api/auth-interceptor';
+import { NotificationEffects } from './state/notification/notification.effects';
+import { NotificationReducer } from './state/notification/notification.reducer';
 
 @NgModule({
     declarations: [
@@ -48,13 +50,15 @@ import { AuthInterceptor } from './api/auth-interceptor';
             greenhouse: greenhouseReducer,
             plants: plantReducer,
             users: userReducer,
-            auth: authReducer
+            auth: authReducer,
+            notification: NotificationReducer
         }),
         EffectsModule.forRoot([
             GreenhouseEffects,
             PlantEffects,
             UserEffects,
-            AuthEffects
+            AuthEffects,
+            NotificationEffects
         ]),
         MaterialModule,
         StoreDevtoolsModule.instrument({

@@ -44,7 +44,7 @@ export class AuthEffects {
       mergeMap(({ email, password, name }) => {
         return this.authService.signUp(email, password, name).pipe(
           map((response: HttpResponse<string>) => {
-            return response.headers.get("Authorization") ?? ''
+            return response.headers.get("authorization") ?? '';
           }),
           tap((token) => {
             localStorage.setItem("token", token);

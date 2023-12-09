@@ -2,6 +2,9 @@ import { createActionGroup, emptyProps, props } from "@ngrx/store";
 import { Greenhouse } from "./greenhouse/greenhouse.model";
 import { Plant } from "./plant/plant.model";
 import { User } from "./user/user.model";
+import { Notification } from './notification/notification.model';
+
+
 
 export const ApiActions = createActionGroup({
     source: 'Api',
@@ -57,5 +60,17 @@ export const AuthActions = createActionGroup({
       'LoginError': props<{ message: string }>(),
       'Log Out': emptyProps(),
       'SignUp': props<{ email: string; password: string, name: string }>(),
+  },
+});
+
+export const NotificationActions = createActionGroup({
+  source: 'Notifications',
+  events: {
+    'Received notifications': props<{ notifications: Notification[] }>(),
+    'Received plant notifications': props<{ notifications: Notification[] }>(),
+    'Update notification': props<{ notification: Notification }>(),
+    'Updated notification': props<{ notification: Notification }>(),
+    'Load notifications': emptyProps(),
+    'Load notifications by plant': props<{ userId: number, plantId: number }>(),
   },
 });
