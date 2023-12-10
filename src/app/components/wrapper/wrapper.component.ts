@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { Notification } from 'src/app/state/notification/notification.model';
 import { State, Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { NotificationActions } from 'src/app/state/actions';
 import { AuthActions } from 'src/app/state/actions';
+import { Observable } from 'rxjs';
+import { selectNotifications } from 'src/app/state/notification/notification.selectors';
 
 @Component({
   selector: 'app-wrapper',
@@ -19,6 +22,8 @@ export class WrapperComponent {
   mobile: boolean = false;
   sidenavOpened: boolean = true;
   activeRoute: string = '';
+  notification$: Observable<Notification[]> = this.store.select(selectNotifications);
+
 
 
   navBarItems: Array<{ title: string; iconName: string; path: string }> = [
@@ -39,11 +44,6 @@ export class WrapperComponent {
     this.store.dispatch(NotificationActions.loadNotifications());
   }
 
-  // getValues(){
-
-  //   this.store.select();
-
-  // }
 
   getActivatedRoute() {
     this.activeRoute = this.router.url;

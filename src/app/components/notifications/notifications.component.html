@@ -5,7 +5,7 @@
   </div>
   <mat-list>
     <div class="headerTitle">New</div>
-    <mat-list-item class="notificationItem" *ngFor="let item of newNotifications">
+    <mat-list-item class="notificationItem"  *ngFor="let item of newNotifications">
       <p class="notificationMessage">{{item.message}}</p>
       <div class="status" [ngClass]="{'statusImmediate':item.status == 'Immediate','statusAverage':item.status == 'Average','statusMild':item.status == 'Mild'}">{{item.status}}</div>
       <div class="timeStamp">{{item.timeStamp}}</div>
@@ -19,4 +19,12 @@
       <div class="timeStamp">{{item.timeStamp}}</div>
     </mat-list-item>
   </mat-list>
+  {{notification$ | async}}
+  <mat-table class="plant-table" [dataSource]="(notification$ | async) ?? []">
+
+    <ng-container matColumnDef="plant">
+        <mat-header-cell *matHeaderCellDef>Plant</mat-header-cell>
+        <mat-cell *matCellDef="let notification"> {{ notification.message }} </mat-cell>
+    </ng-container>
+  </mat-table>
 </div>
