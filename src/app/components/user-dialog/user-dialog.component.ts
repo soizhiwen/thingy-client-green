@@ -16,13 +16,17 @@ import { selectUserOfId } from 'src/app/state/user/user.selectors';
 
 export class UserDialogComponent implements OnInit {
   userNameFormControl = new FormControl('', [Validators.required]);
-  emailFormControl = new FormControl('', [Validators.required]);
-  RoleFormControl = new FormControl<'Admin' | 'User'>('User', [Validators.required]);
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  roleFormControl = new FormControl<'Admin' | 'User'>('User', [Validators.required]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$')]);
+
+  hide = true;
 
   inputFields = [
-    { id: 'user-name', placeholder: 'User name', formControl: this.userNameFormControl, type: 'text' },
-    { id: 'email', placeholder: 'Email', formControl: this.emailFormControl, type: 'email' },
-    { id: 'role', placeholder: 'Role', formControl: this.RoleFormControl, type: 'text' },
+    this.userNameFormControl,
+    this.emailFormControl,
+    this.roleFormControl,
+    this.passwordFormControl,
   ]
 
   constructor(private store: Store, @Inject(MAT_DIALOG_DATA) public userId?: number) { }
@@ -32,7 +36,7 @@ export class UserDialogComponent implements OnInit {
       this.store.select(selectUserOfId(this.userId)).subscribe((user?: User) => {
         this.userNameFormControl.setValue(user?.name ?? '');
         this.emailFormControl.setValue(user?.email ?? null);
-        this.RoleFormControl.setValue(user?.role ?? null);
+        this.roleFormControl.setValue(user?.role ?? null);
       }
       ).unsubscribe()
     }
@@ -48,7 +52,8 @@ export class UserDialogComponent implements OnInit {
         id: undefined,
         name: this.userNameFormControl.value ?? '',
         email: this.emailFormControl.value ?? '',
-        role: this.RoleFormControl.value ?? 'User'
+        role: this.roleFormControl.value ?? 'User',
+        password: this.passwordFormControl.value ?? ''
       }
     }));
   }
@@ -59,14 +64,15 @@ export class UserDialogComponent implements OnInit {
         id: this.userId,
         name: this.userNameFormControl.value ?? '',
         email: this.emailFormControl.value ?? '',
-        role: this.RoleFormControl.value ?? 'User'
+        role: this.roleFormControl.value ?? 'User',
+        password: this.passwordFormControl.value ?? ''
       }
     }));
   }
 
   isButtonDisabled(): boolean {
     for (const inputField of this.inputFields) {
-      if (inputField.formControl.hasError('required'))
+      if (inputField.hasError('required') || inputField.hasError('pattern') || inputField.hasError('email'))
         return true;
     }
     return false;
