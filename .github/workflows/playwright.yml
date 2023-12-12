@@ -19,6 +19,8 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run local server
       run: npm run start &
+    - name: Create DBs
+      run: docker-compose -f docker-compose.yml up -d
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v3
