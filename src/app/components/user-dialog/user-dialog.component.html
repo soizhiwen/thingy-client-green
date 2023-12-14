@@ -15,18 +15,29 @@
             <mat-label> Email </mat-label>
             <input matInput [formControl]="emailFormControl">
             <mat-error *ngIf="emailFormControl.hasError('required')">This Field is required.</mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('email')">Enter a valid Email</mat-error>
         </mat-form-field>
     </div>
     <div>
         <mat-form-field class="input-field">
             <mat-label> Role </mat-label>
-            <mat-select [formControl]="RoleFormControl">
+            <mat-select [formControl]="roleFormControl">
                 <mat-option value="Admin">Admin</mat-option>
                 <mat-option value="User">User</mat-option>
             </mat-select>
             <mat-error *ngIf="userNameFormControl.hasError('required')">This Field is required.</mat-error>
         </mat-form-field>
     </div>
+
+    <mat-form-field class="input-field">
+        <mat-label> Password </mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" [formControl]="passwordFormControl">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
+            <mat-icon class="eyeIcon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('pattern')">Enter a strong password</mat-error>
+    </mat-form-field>
 
     <div>
         <mat-dialog-actions align="center">

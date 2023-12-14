@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
 import { OnboardingModule } from './components/onboarding/onboarding.module';
 import { authGuard } from './auth/auth-guard.service';
+import { loginGuard } from './auth/login-guard.service';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => OnboardingModule
+    loadChildren: () => OnboardingModule,
+    canActivate: [loginGuard],
   },
   {
     path: '**',
