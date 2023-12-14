@@ -15,4 +15,9 @@
 
 .dialog-button {
     @include dialog-button;
+    margin-left: 15px;
+}
+
+.range-error {
+    margin-left: 20px;
 }
