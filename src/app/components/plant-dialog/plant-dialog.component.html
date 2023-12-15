@@ -22,24 +22,31 @@
         </div>
 
         <div *ngFor="let inputField of rangeFields">
-            <mat-form-field class="input-field" [id]="'input-field-' + inputField.id">
-                <mat-label>{{ 'Minimum ' + inputField.placeholder }}</mat-label>
-                <input matInput [formControl]="inputField.formControls[0]" type="number">
-                <mat-error *ngIf="inputField.formControls[0].hasError('required')">This Field is required.</mat-error>
-            </mat-form-field>
+            <form [formGroup]="inputField.formGroup">
+                <mat-form-field class="input-field" [id]="'input-field-' + inputField.id">
+                    <mat-label>{{ 'Minimum ' + inputField.placeholder }}</mat-label>
+                    <input matInput formControlName="min" type="number" min="0">
+                    <mat-error *ngIf="inputField.formGroup.get('min')?.hasError('required')">
+                        This Field is required.
+                    </mat-error>
+                </mat-form-field>
 
-            <mat-form-field class="input-field" [id]="'input-field-' + inputField.id">
-                <mat-label>{{ 'Maximum ' + inputField.placeholder }}</mat-label>
-                <input matInput [formControl]="inputField.formControls[1]" type="number">
-                <mat-error *ngIf="inputField.formControls[1].hasError('required')">This Field is required.</mat-error>
-            </mat-form-field>
+                <mat-form-field class="input-field" [id]="'input-field-' + inputField.id">
+                    <mat-label>{{ 'Maximum ' + inputField.placeholder }}</mat-label>
+                    <input matInput formControlName="max" type="number" min="0">
+                </mat-form-field>
+            </form>
 
         </div>
     </form>
 </div>
-<mat-dialog-actions align="center">
+
+<mat-dialog-actions>
     <button mat-raised-button mat-dialog-close class="dialog-button"
         (click)="plantId == undefined? addPlant() : editPlant()" [disabled]="isButtonDisabled()">
         {{ plantId != undefined ? 'Update Plant' : 'Add Plant'}}
     </button>
 </mat-dialog-actions>
+<mat-error class="range-error" *ngIf="hasRangeError()">
+    Maximum must be greater than minimum.
+</mat-error>
