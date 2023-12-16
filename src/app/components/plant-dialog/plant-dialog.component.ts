@@ -122,8 +122,10 @@ export class PlantDialogComponent implements OnInit {
     for (const inputField of this.rangeFields) {
       if (
         inputField.formGroup.errors?.['invalidRange']
-      )
+      ) {
         return true;
+      }
+
     }
     return false;
   }
