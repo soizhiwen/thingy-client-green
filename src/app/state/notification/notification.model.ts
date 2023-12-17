@@ -1,6 +1,8 @@
 export interface Notification {
   id?: number;
   message: string;
-  status: 'Mild'|'Average'|'Immediate';
-  timeStamp: number;
+  userId:number;
+  plantId:number;
+  viewed:'New'|'Read';
+  timestamp: number;
 }

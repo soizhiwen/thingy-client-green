@@ -4,19 +4,19 @@
     <mat-icon class="closeIcon" (click)="onCloseClick()">close</mat-icon>
   </div>
   <mat-list>
-    <div class="headerTitle">New</div>
-    <mat-list-item class="notificationItem" *ngFor="let item of newNotifications">
+    <div class="headerTitle" *ngIf="newNotifications.length !=0">New</div>
+    <mat-list-item class="notificationItem"  *ngFor="let item of newNotifications">
       <p class="notificationMessage">{{item.message}}</p>
-      <div class="status" [ngClass]="{'statusImmediate':item.status == 'Immediate','statusAverage':item.status == 'Average','statusMild':item.status == 'Mild'}">{{item.status}}</div>
-      <div class="timeStamp">{{item.timeStamp}}</div>
+      <!-- <div class="status" [ngClass]="{'statusImmediate':item.status == 'Immediate','statusAverage':item.status == 'Average','statusMild':item.status == 'Mild'}">{{item.status}}</div> -->
+      <div class="timeStamp">{{ item.timestamp | date : 'h:mm a , d/M/yyyy' }}</div>
     </mat-list-item>
   </mat-list>
   <mat-list>
-    <div class="headerTitle">Earlier</div>
-    <mat-list-item class="notificationItem" *ngFor="let item of newNotifications">
+    <div class="headerTitle" *ngIf="oldNotifications.length !=0">Earlier</div>
+    <mat-list-item class="notificationItem" *ngFor="let item of oldNotifications">
       <p class="notificationMessage">{{item.message}}</p>
-      <div class="status" [ngClass]="{'statusImmediate':item.status == 'Immediate','statusAverage':item.status == 'Average','statusMild':item.status == 'Mild'}">{{item.status}}</div>
-      <div class="timeStamp">{{item.timeStamp}}</div>
+      <!-- <div class="status" [ngClass]="{'statusImmediate':item.status == 'Immediate','statusAverage':item.status == 'Average','statusMild':item.status == 'Mild'}">{{item.status}}</div> -->
+      <div class="timeStamp">{{ item.timestamp | date : 'h:mm a , d/M/yyyy' }}</div>
     </mat-list-item>
   </mat-list>
 </div>

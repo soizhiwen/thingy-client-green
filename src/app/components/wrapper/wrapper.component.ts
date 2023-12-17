@@ -2,8 +2,13 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NotificationsComponent } from '../notifications/notifications.component';
-import { Store } from '@ngrx/store';
+import { Notification } from 'src/app/state/notification/notification.model';
+import { State, Store } from '@ngrx/store';
+import { NotificationActions } from 'src/app/state/actions';
 import { AuthActions } from 'src/app/state/actions';
+import { Observable } from 'rxjs';
+import { selectNotifications } from 'src/app/state/notification/notification.selectors';
+import { webSocket } from "rxjs/webSocket";
 
 @Component({
   selector: 'app-wrapper',
@@ -16,6 +21,15 @@ export class WrapperComponent {
   mobile: boolean = false;
   sidenavOpened: boolean = true;
   activeRoute: string = '';
+  notification$: Observable<Notification[]> = this.store.select(selectNotifications);
+
+  newNotifications:Notification[]=[];
+  oldNotifications:Notification[]=[];
+  notificationCount:number=0;
+
+  subject = webSocket('http://localhost:8080/');
+
+
 
 
   navBarItems: Array<{ title: string; iconName: string; path: string }> = [
@@ -33,6 +47,8 @@ export class WrapperComponent {
       this.mobile = true;
       this.sidenavOpened = false;
     }
+    this.store.dispatch(NotificationActions.loadNotifications());
+    this.getNotifications();
   }
 
 
@@ -46,12 +62,37 @@ export class WrapperComponent {
       backdropClass: 'dialogStyle',
       position: { top: '80px', right: '60px' },
       width: '400px',
+      data:{newNotifications:this.newNotifications.reverse(),oldNotifications:this.oldNotifications.reverse()},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      if(this.newNotifications.length !=0){
+        this.store.dispatch(NotificationActions.updateNotification({notification:this.newNotifications}));
+        this.notificationCount=0;
+        this.newNotifications=[];
+      }
     });
   }
+
+  getNotifications(){
+    this.notification$.subscribe((data)=>{
+      data.forEach((item)=>{
+        if(item.viewed=='New'){
+          this.newNotifications.push(item);
+          this.notificationCount++;
+        }
+        else this.oldNotifications.push(item);
+      })
+    })
+    this.newNotifications.sort((x,y)=>{
+      return new Date(x.timestamp) < new Date(y.timestamp) ? 1 : -1
+    })
+    this.oldNotifications.sort((x,y)=>{
+      return new Date(x.timestamp) < new Date(y.timestamp) ? 1 : -1
+    })
+  }
+
 
   logOut() {
     this.store.dispatch(AuthActions.logOut())
