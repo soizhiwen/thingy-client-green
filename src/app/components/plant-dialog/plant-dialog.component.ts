@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubscriptSizing } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,14 @@ import { map, tap } from 'rxjs';
 import { PlantActions } from 'src/app/state/actions';
 import { Plant } from 'src/app/state/plant/plant.model';
 import { selectPlantOfId } from 'src/app/state/plant/plant.selectors';
+
+const rangeValidator: ValidatorFn = (
+  control: AbstractControl
+): ValidationErrors | null => {
+  return control.value.min <= control.value.max
+    ? null
+    : { invalidRange: true };
+};
 
 @Component({
   selector: 'plant-dialog',
@@ -18,22 +26,21 @@ export class PlantDialogComponent implements OnInit {
   plantFormControl = new FormControl('', [Validators.required]);
   dateFormControl = new FormControl<Date | null>(new Date());
 
-  minHumidityFormControl = new FormControl<number | null>(null, [Validators.required]);
-  minTemperatureFormControl = new FormControl<number | null>(null, [Validators.required]);
-  minCo2FormControl = new FormControl<number | null>(null, [Validators.required]);
-  minAirQualityFormControl = new FormControl<number | null>(null, [Validators.required]);
+  minHumidityFormControl = new FormControl<number | null>(null, [Validators.required, Validators.min(0)]);
+  minTemperatureFormControl = new FormControl<number | null>(null, [Validators.required, Validators.min(0)]);
+  minCo2FormControl = new FormControl<number | null>(null, [Validators.required, Validators.min(0)]);
+  minAirQualityFormControl = new FormControl<number | null>(null, [Validators.required, Validators.min(0)]);
 
   maxHumidityFormControl = new FormControl<number | null>(null, [Validators.required]);
   maxTemperatureFormControl = new FormControl<number | null>(null, [Validators.required]);
   maxCo2FormControl = new FormControl<number | null>(null, [Validators.required]);
   maxAirQualityFormControl = new FormControl<number | null>(null, [Validators.required]);
 
-
   rangeFields = [
-    { id: 'humidiy', placeholder: 'Humidity', formControls: [this.minHumidityFormControl, this.maxHumidityFormControl] },
-    { id: 'temperature', placeholder: 'Temperature', formControls: [this.minTemperatureFormControl, this.maxTemperatureFormControl] },
-    { id: 'co2', placeholder: 'C02 Level', formControls: [this.minCo2FormControl, this.maxCo2FormControl] },
-    { id: 'air-quality', placeholder: 'Air Quality', formControls: [this.minAirQualityFormControl, this.maxAirQualityFormControl] }
+    { id: 'humidiy', placeholder: 'Humidity', formGroup: new FormGroup({ min: this.minHumidityFormControl, max: this.maxHumidityFormControl }, { validators: rangeValidator }) },
+    { id: 'temperature', placeholder: 'Temperature', formGroup: new FormGroup({ min: this.minTemperatureFormControl, max: this.maxTemperatureFormControl }, { validators: rangeValidator }) },
+    { id: 'co2', placeholder: 'C02 Level', formGroup: new FormGroup({ min: this.minCo2FormControl, max: this.maxCo2FormControl }, { validators: rangeValidator }) },
+    { id: 'air-quality', placeholder: 'Air Quality', formGroup: new FormGroup({ min: this.minAirQualityFormControl, max: this.maxAirQualityFormControl }, { validators: rangeValidator }) }
   ]
 
   constructor(private store: Store, @Inject(MAT_DIALOG_DATA) public plantId?: number) { }
@@ -98,12 +105,28 @@ export class PlantDialogComponent implements OnInit {
 
   isButtonDisabled(): boolean {
     for (const inputField of this.rangeFields) {
+      const min = inputField.formGroup.get('min');
+      const max = inputField.formGroup.get('max');
       if (
-        inputField.formControls[0].hasError('required')
-        || inputField.formControls[1].hasError('required')
+        min?.hasError('required')
+        || min?.hasError('min')
+        || max?.hasError('required')
+        || inputField.formGroup.errors?.['invalidRange']
       )
         return true;
     }
     return this.plantFormControl.hasError('required');
+  }
+
+  hasRangeError(): boolean {
+    for (const inputField of this.rangeFields) {
+      if (
+        inputField.formGroup.errors?.['invalidRange']
+      ) {
+        return true;
+      }
+
+    }
+    return false;
   }
 }
