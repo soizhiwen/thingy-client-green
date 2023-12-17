@@ -26,10 +26,10 @@ export class NotificationEffects {
 
     loadNotificationsByPlant$ = createEffect(() => this.actions$.pipe(
       ofType(NotificationActions.loadNotificationsByPlant),
-      mergeMap(({ userId, plantId }) => this.notificationService.getNotificationsByPlant(userId,plantId)
+      mergeMap(({ plantId }) => this.notificationService.getNotificationsByPlant(plantId)
           .pipe(
-              map(notífications => NotificationActions.receivedPlantNotifications({ notifications: notífications })),
-              catchError(() => of(NotificationActions.receivedPlantNotifications({ notifications: initialState })))
+              map(notífications => NotificationActions.receivedPlantNotifications({ plantNotifications: notífications })),
+              catchError(() => of(NotificationActions.receivedPlantNotifications({ plantNotifications: initialState })))
           ))
   ));
 

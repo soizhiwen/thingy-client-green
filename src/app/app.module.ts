@@ -22,7 +22,8 @@ import { AuthService } from './api/auth.service';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './api/auth-interceptor';
 import { NotificationEffects } from './state/notification/notification.effects';
-import { NotificationReducer } from './state/notification/notification.reducer';
+import { NotificationReducer, plantNotificationReducer } from './state/notification/notification.reducer';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import { NotificationReducer } from './state/notification/notification.reducer';
             plants: plantReducer,
             users: userReducer,
             auth: authReducer,
-            notification: NotificationReducer
+            notification: NotificationReducer,
+            plantNotification: plantNotificationReducer
         }),
         EffectsModule.forRoot([
             GreenhouseEffects,
@@ -64,6 +66,7 @@ import { NotificationReducer } from './state/notification/notification.reducer';
         StoreDevtoolsModule.instrument({
             maxAge: 25,
         }),
+        CanvasJSAngularChartsModule
     ]
 })
 export class AppModule { }

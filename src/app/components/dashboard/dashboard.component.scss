@@ -25,11 +25,11 @@
         font-size: 21px;
         font-style: normal;
         font-weight: 600;
-        line-height: normal; 
+        line-height: normal;
     }
     .cards {
         @include cards();
-        
+
         .plant-card {
             @include card();
             color: $muddy-green;
@@ -45,7 +45,7 @@
         }
 
         .detail-card {
-            @include card(); 
+            @include card();
             background-color: $muddy-green;
             color: $cream;
             justify-content: center;
@@ -56,19 +56,29 @@
                 display: block;
                 color: $cream
             }
-    
+
             .current-value {
                 color: $cream;
                 font-size: 36px;
                 font-style: normal;
                 font-weight: 600;
-                line-height: normal; 
+                line-height: normal;
             }
-        } 
+
+            .hover-text:hover{
+              text-decoration: underline;
+              cursor: pointer;
+            }
+        }
     }
 
     .notification-table {
         @include table();
         padding-top: 8px;
+
+        .notification-text{
+          color: $muddy-green;
+          font-weight: 500;
+        }
     }
 }

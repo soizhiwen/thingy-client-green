@@ -10,13 +10,13 @@ export class NotificationService {
     getNotifications(): Observable<Notification[]> {
         return this.http.get<Notification[]>('http://localhost:8080/notification-views/');
     }
-    getNotificationsByPlant(userId:number,plantId:number): Observable<Notification[]> {
-      return this.http.get<Notification[]>('http://localhost:8080/notification-views/'+ userId + '/' + plantId);
+    getNotificationsByPlant(plantId:number): Observable<Notification[]> {
+      return this.http.get<Notification[]>('http://localhost:8080/notifications/plants/'+ plantId);
   }
-    updateNotification(notification: Notification) {
-        return this.http.patch<Notification>(
-            'http://localhost:8080/notification-views/' + notification.userId,
-            notification
+    updateNotification(notifications: Notification[]) {
+        return this.http.patch<Notification[]>(
+            'http://localhost:8080/notification-views/',
+            notifications
         );
     }
 

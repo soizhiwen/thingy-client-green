@@ -1,3 +1,7 @@
+
+<!-- <div  style="display: block;">
+  <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+</div> -->
 <div class="dashboard" data-testid="dashboard">
     <div class="title"> Dashboard </div>
     <div class="subtitle">
@@ -10,11 +14,12 @@
 
         <div class="cards">
             <div *ngFor="let plant of (currentPlants$ | async)" class="plant-card"
-                (click)="plantSelected = plantSelected == plant.id ? undefined : plant.id">
+                (click)="selectPlant(plant.id??0)">
                 <div class="plant-name"> {{ plant.name }} </div>
                 <div *ngIf="plant.harvest_date != undefined"> {{ daysLeft(plant.harvest_date) + ' days more' }} </div>
             </div>
         </div>
+
     </div>
 
     <div class="details" *ngIf="plantSelected != undefined">
@@ -26,26 +31,27 @@
                 <div> {{ detail.name }} </div>
                 <img class="temperature-icon" [src]="detail.img" />
                 <div class="current-value"> {{ (detail.value$| async) }}{{ detail.unit }}</div>
-                <div>View Graph <img src="../../assets/vector.svg"></div>
+                <div class="hover-text" (click)="getgraphDetails(detail.name)">View Graph <img src="../../assets/vector.svg"></div>
             </div>
         </div>
 
     </div>
 
+
     <div>
         <div class="section-title" *ngIf="plantSelected"> Notifications </div>
     </div>
 
-    <mat-table class="notification-table" *ngIf="plantSelected != undefined" [dataSource]="notificationData">
+    <mat-table class="notification-table" *ngIf="plantSelected != undefined" [dataSource]="dataSource??notificationData">
 
         <ng-container matColumnDef="notification">
             <mat-header-cell *matHeaderCellDef> Notification </mat-header-cell>
-            <mat-cell *matCellDef="let notification"> {{ notification.message }} </mat-cell>
+            <mat-cell *matCellDef="let notification" class="notification-text"> {{ notification.message }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="time">
             <mat-header-cell *matHeaderCellDef> Date and Time </mat-header-cell>
-            <mat-cell *matCellDef="let notification"> {{ notification.timeStamp | date : 'd.M.yyyy, h:mm a' }}
+            <mat-cell *matCellDef="let notification" class="notification-text"> {{ notification.timestamp | date : 'h:mm a , d/M/yyyy' }}
             </mat-cell>
         </ng-container>
 
@@ -53,4 +59,12 @@
         <mat-row *matRowDef="let row; columns: notificationColumns" class="table-row"></mat-row>
 
     </mat-table>
+    <div [hidden]="plantSelected == undefined">
+      <mat-paginator #paginator [length]="notificationData.length"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page">
+      </mat-paginator>
+  </div>
 </div>
+

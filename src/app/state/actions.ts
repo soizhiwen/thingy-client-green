@@ -68,10 +68,10 @@ export const NotificationActions = createActionGroup({
   source: 'Notifications',
   events: {
     'Received notifications': props<{ notifications: Notification[] }>(),
-    'Received plant notifications': props<{ notifications: Notification[] }>(),
-    'Update notification': props<{ notification: Notification }>(),
-    'Updated notification': props<{ notification: Notification }>(),
+    'Received plant notifications': props<{ plantNotifications: Notification[] }>(),
+    'Update notification': props<{ notification: Notification[] }>(),
+    'Updated notification': props<{ notification: Notification[] }>(),
     'Load notifications': emptyProps(),
-    'Load notifications by plant': props<{ userId: number, plantId: number }>(),
+    'Load notifications by plant': props<{ plantId: number }>(),
   },
 });

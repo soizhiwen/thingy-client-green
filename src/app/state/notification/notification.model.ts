@@ -3,5 +3,6 @@ export interface Notification {
   message: string;
   userId:number;
   plantId:number;
-  timeStamp: number;
+  viewed:'New'|'Read';
+  timestamp: number;
 }
