@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { login } from './login';
 
-test('Login page is loading', async ({ page }) => {
-  await page.goto('http://localhost:4200/');
-  await expect(page.getByText('Login to your account')).toBeVisible();
+test('User can log in and log out', async ({ page }) => {
+  await page.goto('https://soizhiwen.com/');
+  await login(page);
+
+  await expect(page).toHaveURL(`https://soizhiwen.com/home/dashboard`);
+  await page.getByRole('button', { name: 'Logout', exact: true }).click();
 });
 
-test('User is redirected to login page if not logged in', async ({ page }) => {
-  await page.goto('http://localhost:4200/home/dashboard');
-  await expect(page.getByText('Login to your account')).toBeVisible();
-});
