@@ -43,11 +43,11 @@ export class PlantDialogComponent implements OnInit {
     { id: 'air-quality', placeholder: 'Air Quality', formGroup: new FormGroup({ min: this.minAirQualityFormControl, max: this.maxAirQualityFormControl }, { validators: rangeValidator }) }
   ]
 
-  constructor(private store: Store, @Inject(MAT_DIALOG_DATA) public plantId?: number) { }
+  constructor(private store: Store, @Inject(MAT_DIALOG_DATA) public data: {id?: number, edit: boolean}) { }
 
   ngOnInit(): void {
-    if (this.plantId != undefined) {
-      this.store.select(selectPlantOfId(this.plantId)).subscribe((plant?: Plant) => {
+    if (this.data.id != undefined) {
+      this.store.select(selectPlantOfId(this.data.id)).subscribe((plant?: Plant) => {
         this.plantFormControl.setValue(plant?.name ?? '');
         this.dateFormControl.setValue(plant?.harvest_date ?? null);
         this.minHumidityFormControl.setValue(plant?.min_humidity ?? null);
@@ -88,7 +88,7 @@ export class PlantDialogComponent implements OnInit {
   editPlant() {
     this.store.dispatch(PlantActions.updatePlant({
       plant: {
-        id: this.plantId,
+        id: this.data.id,
         name: this.plantFormControl.value ?? '',
         harvest_date: this.dateFormControl.value ?? undefined,
         min_temperature: this.minTemperatureFormControl.value ?? 0,

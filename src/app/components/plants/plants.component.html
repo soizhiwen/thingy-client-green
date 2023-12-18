@@ -4,7 +4,7 @@
         Add and update the details of your plants
     </div>
 
-    <button mat-raised-button class="add-plant-button" (click)="openDialog()" [disabled]="!(isAdmin$ | async)">
+    <button mat-raised-button class="add-plant-button" (click)="openDialog(true)" [disabled]="!(isAdmin$ | async)">
         + Add Plant
     </button>
 
@@ -12,7 +12,9 @@
 
         <ng-container matColumnDef="plant">
             <mat-header-cell *matHeaderCellDef>Plant</mat-header-cell>
-            <mat-cell *matCellDef="let plant"> {{ plant.name }} </mat-cell>
+            <mat-cell class="plant-name" *matCellDef="let plant" (click)="openDialog(false, plant.id)">
+                {{ plant.name }}
+            </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="date">
@@ -24,7 +26,7 @@
             <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
             <mat-cell *matCellDef="let data">
                 <button mat-icon-button class="action-button" [disabled]="!(isAdmin$ | async)"
-                    (click)="openDialog(data.id)"><mat-icon>edit</mat-icon></button>
+                    (click)="openDialog(true, data.id)"><mat-icon>edit</mat-icon></button>
                 <button mat-icon-button class="action-button" [disabled]="!(isAdmin$ | async)"
                     (click)="deletePlant(data.id)"><mat-icon>delete_outline</mat-icon></button>
             </mat-cell>

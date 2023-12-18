@@ -1,13 +1,14 @@
-<div mat-dialog-title class="title">{{ plantId == undefined ? 'Add Plant' : 'Update Plant' }}</div>
+<div mat-dialog-title class="title">{{ data.id == undefined ? 'Add Plant' : (data.edit ? 'Update Plant' : 'View Plant')
+    }}</div>
 <div mat-dialog-content>
     <div class="subtitle">
-        {{ plantId == undefined ? 'Create a new plant for the system' : 'Update your plant'}}
+        {{ data.id == undefined ? 'Create a new plant for the system' : ''}}
     </div>
     <form>
         <div>
             <mat-form-field class="input-field" id="input-field-name">
                 <mat-label> Plant name </mat-label>
-                <input matInput [formControl]="plantFormControl">
+                <input matInput [readonly]="!data.edit" [formControl]="plantFormControl">
                 <mat-error *ngIf="plantFormControl.hasError('required')">This Field is required.</mat-error>
             </mat-form-field>
         </div>
@@ -15,7 +16,8 @@
         <div>
             <mat-form-field class="input-field">
                 <mat-label> Expected Harvest time </mat-label>
-                <input matInput [matDatepicker]="picker" [formControl]="dateFormControl">
+                <input matInput [readonly]="!data.edit" matInput [matDatepicker]="picker"
+                    [formControl]="dateFormControl">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -25,7 +27,7 @@
             <form [formGroup]="inputField.formGroup">
                 <mat-form-field class="input-field" [id]="'input-field-' + inputField.id">
                     <mat-label>{{ 'Minimum ' + inputField.placeholder }}</mat-label>
-                    <input matInput formControlName="min" type="number" min="0">
+                    <input [readonly]="!data.edit" matInput formControlName="min" type="number" min="0">
                     <mat-error *ngIf="inputField.formGroup.get('min')?.hasError('required')">
                         This Field is required.
                     </mat-error>
@@ -33,7 +35,7 @@
 
                 <mat-form-field class="input-field" [id]="'input-field-' + inputField.id">
                     <mat-label>{{ 'Maximum ' + inputField.placeholder }}</mat-label>
-                    <input matInput formControlName="max" type="number" min="0">
+                    <input [readonly]="!data.edit" matInput formControlName="max" type="number" min="0">
                 </mat-form-field>
             </form>
 
@@ -41,10 +43,10 @@
     </form>
 </div>
 
-<mat-dialog-actions>
+<mat-dialog-actions *ngIf="data.edit">
     <button mat-raised-button mat-dialog-close class="dialog-button"
-        (click)="plantId == undefined? addPlant() : editPlant()" [disabled]="isButtonDisabled()">
-        {{ plantId != undefined ? 'Update Plant' : 'Add Plant'}}
+        (click)="data.id == undefined? addPlant() : editPlant()" [disabled]="isButtonDisabled()">
+        {{ data.id != undefined ? 'Update Plant' : 'Add Plant'}}
     </button>
 </mat-dialog-actions>
 <mat-error class="range-error" *ngIf="hasRangeError()">

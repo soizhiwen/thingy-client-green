@@ -31,10 +31,10 @@ export class PlantsComponent {
     this.store.dispatch(PlantActions.deletePlant({ plantId }));
   }
 
-  openDialog(plantId?: number) {
+  openDialog(canEdit: boolean, plantId?: number,) {
     this.dialog.open(PlantDialogComponent, {
       minHeight: 650,
-      data: plantId
+      data: { id: plantId, edit: canEdit },
     });
   }
 }

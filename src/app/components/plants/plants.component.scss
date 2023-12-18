@@ -15,6 +15,10 @@
 
     .plant-table {
         @include table();
+
+        .plant-name:hover {
+            cursor: pointer;
+        }
     }
 
     .add-plant-button{
