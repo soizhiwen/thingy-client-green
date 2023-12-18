@@ -26,16 +26,16 @@
   </mat-sidenav>
 
   <div class="content">
-    <mat-toolbar>
+    <mat-toolbar class="toolbar">
       <button mat-icon-button *ngIf="mobile" (click)="sidenavOpened = !sidenavOpened">
         <mat-icon class="nav-menu-icon">menu</mat-icon>
       </button>
-      <div class="search-bar" *ngIf="!mobile">
+      <!-- <div class="search-bar" *ngIf="!mobile">
         <mat-form-field color="primary" appearance="outline">
           <mat-icon matPrefix class="searchIcon">search</mat-icon>
           <input type="search" matInput placeholder="Search">
         </mat-form-field>
-      </div>
+      </div> -->
       <span class="spacer"></span>
       <button mat-icon-button *ngIf="mobile" >
         <mat-icon class="notificationIcon">search</mat-icon>
