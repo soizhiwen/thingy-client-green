@@ -9,6 +9,8 @@ import { selectPlantOfId, selectPlants } from 'src/app/state/plant/plant.selecto
 import { selectPlantNotifications } from 'src/app/state/notification/notification.selectors';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import io from 'socket.io-client';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +18,8 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  socket = io('http://localhost:8080/');
 
   currentDetails = [
     { name: 'Temperature', value$: this.store.select(selectCurrentTemperature), img: "../../assets/temperature.png", unit: '°C' },
@@ -43,6 +47,12 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(DashboardActions.loadGreenhouseData())
     this.store.dispatch(PlantActions.loadPlants());
+    this.socket.emit("greeenhouseData", 'settingGreenhouseSocket');
+    this.socket.on("greeenhouseData",(data)=>{
+      if(data = "newGreeenhouseData"){
+        this.store.dispatch(DashboardActions.loadGreenhouseData())
+      }
+    })
   }
 
   daysLeft(date: Date): number {
