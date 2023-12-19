@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Greenhouse } from '../state/greenhouse/greenhouse.model';
+import { AppId } from './AppId';
+import { Graph } from '../state/graph/graph.model';
 
 @Injectable({ providedIn: 'root' })
 export class GreenhouseService {
@@ -11,6 +13,10 @@ export class GreenhouseService {
         return this.http.get('http://localhost:8080/greenhouse/').pipe(
             map(result => this.toGreenhouse(result))
         );
+    }
+
+    getGreenhouseGraphData(appId: AppId): Observable<Graph[]> {
+        return this.http.get<Graph[]>(`http://localhost:8080/greenhouse/${appId}/0`);
     }
 
     private toGreenhouse(value: any): Greenhouse {

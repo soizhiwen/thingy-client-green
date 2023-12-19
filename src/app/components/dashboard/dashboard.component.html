@@ -26,15 +26,15 @@
                 <div> {{ detail.name }} </div>
                 <img class="temperature-icon" [src]="detail.img" />
                 <div class="current-value"> {{ (detail.value$| async) }}{{ detail.unit }}</div>
-                <div class="hover-text" (click)="getgraphDetails(detail.name)">View Graph <img
+                <div class="hover-text" (click)="getgraphDetails(detail.name, detail.appId)">View Graph <img
                         src="../../assets/vector.svg"></div>
             </div>
         </div>
 
     </div>
 
-    <div *ngIf="showGraph" >
-        <canvasjs-chart [options]="chartOptions" [styles]="{width: '50%', height:'360px'}"></canvasjs-chart>
+    <div class="graph" *ngIf="showGraph">
+        <canvasjs-chart [options]="chartOptions" [styles]="{width: '80%', height:'360px'}"></canvasjs-chart>
     </div>
 
     <div>

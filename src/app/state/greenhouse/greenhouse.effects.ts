@@ -15,11 +15,11 @@ export class GreenhouseEffects {
     ) { }
 
     loadGreenhouseData$ = createEffect(() => this.actions$.pipe(
-        ofType(DashboardActions.loadGreenhouseData, AuthActions.loggedIn),
+        ofType(DashboardActions.loadCurrentGreenhouseData, AuthActions.loggedIn),
         mergeMap(() => this.apiService.getGreenhouseData()
             .pipe(
-                map(greenhouseData => ApiActions.receivedGreenhouseData({ greenhouse: greenhouseData })),
-                catchError(() => of(ApiActions.receivedGreenhouseData({ greenhouse: initialState })))
+                map(greenhouseData => ApiActions.receivedCurrentGreenhouseData({ greenhouse: greenhouseData })),
+                catchError(() => of(ApiActions.receivedCurrentGreenhouseData({ greenhouse: initialState })))
             ))
     )
     );

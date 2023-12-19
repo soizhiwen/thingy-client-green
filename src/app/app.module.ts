@@ -24,6 +24,8 @@ import { AuthInterceptor } from './api/auth-interceptor';
 import { NotificationEffects } from './state/notification/notification.effects';
 import { NotificationReducer, plantNotificationReducer } from './state/notification/notification.reducer';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { graphReducer } from './state/graph/graph.reducer';
+import { GraphEffects } from './state/graph/graph.effects';
 
 @NgModule({
     declarations: [
@@ -53,14 +55,16 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
             users: userReducer,
             auth: authReducer,
             notification: NotificationReducer,
-            plantNotification: plantNotificationReducer
+            plantNotification: plantNotificationReducer,
+            graph: graphReducer
         }),
         EffectsModule.forRoot([
             GreenhouseEffects,
             PlantEffects,
             UserEffects,
             AuthEffects,
-            NotificationEffects
+            NotificationEffects,
+            GraphEffects,
         ]),
         MaterialModule,
         StoreDevtoolsModule.instrument({

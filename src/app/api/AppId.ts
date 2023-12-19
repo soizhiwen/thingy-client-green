@@ -1,0 +1,1 @@
+export type AppId = 'TEMP' | 'HUMID' | 'AIR_QUAL' | 'CO2_EQUIV';

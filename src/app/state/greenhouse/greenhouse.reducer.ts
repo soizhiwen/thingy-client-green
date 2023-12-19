@@ -6,5 +6,5 @@ export const initialState: Greenhouse = { timestamp: 0, temperature: 0, humidity
 
 export const greenhouseReducer = createReducer(
     initialState,
-    on(ApiActions.receivedGreenhouseData, (_, { greenhouse }) => greenhouse)
+    on(ApiActions.receivedCurrentGreenhouseData, (_, { greenhouse }) => greenhouse)
 );

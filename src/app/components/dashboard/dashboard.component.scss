@@ -72,9 +72,13 @@
         }
     }
 
+    .graph{
+        padding-bottom: 30px;
+    }
+
     .notification-table {
         @include table();
-        padding-top: 8px;
+        padding-top: 20px;
 
         .notification-text{
           color: $muddy-green;

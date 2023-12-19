@@ -3,13 +3,16 @@ import { Greenhouse } from "./greenhouse/greenhouse.model";
 import { Plant } from "./plant/plant.model";
 import { User } from "./user/user.model";
 import { Notification } from './notification/notification.model';
+import { AppId } from "../api/AppId";
+import { Graph } from "./graph/graph.model";
 
 
 
 export const ApiActions = createActionGroup({
     source: 'Api',
     events: {
-        'Received greenhouse data': props<{ greenhouse: Greenhouse }>(),
+        'Received current greenhouse data': props<{ greenhouse: Greenhouse }>(),
+        'Received graph data': props<{ data: Graph[] }>(),
         'Received users': props<{ users: User[] }>(),
         'Added user': props<{ user: User }>(),
         'Deleted user': props<{ userId: number }>(),
@@ -25,7 +28,8 @@ export const ApiActions = createActionGroup({
 export const DashboardActions = createActionGroup({
     source: 'Dashboard',
     events: {
-        'Load greenhouse data': emptyProps(),
+        'Load current greenhouse data': emptyProps(),
+        'Load greenhouse graph data': props<{ appId: AppId }>(),
     },
 });
 
