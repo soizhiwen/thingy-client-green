@@ -38,7 +38,7 @@
     </div>
 
     <div>
-        <div class="section-title" *ngIf="plantSelected"> Notifications </div>
+        <div class="section-title" [style]="'padding-bottom: 20px'" *ngIf="plantSelected"> Notifications </div>
     </div>
 
     <mat-table class="notification-table" *ngIf="plantSelected != undefined"

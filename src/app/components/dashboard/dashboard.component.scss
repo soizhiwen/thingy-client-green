@@ -78,7 +78,6 @@
 
     .notification-table {
         @include table();
-        padding-top: 20px;
 
         .notification-text{
           color: $muddy-green;
