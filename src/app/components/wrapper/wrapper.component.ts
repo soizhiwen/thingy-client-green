@@ -8,7 +8,8 @@ import { NotificationActions } from 'src/app/state/actions';
 import { AuthActions } from 'src/app/state/actions';
 import { Observable } from 'rxjs';
 import { selectNotifications } from 'src/app/state/notification/notification.selectors';
-import { webSocket } from "rxjs/webSocket";
+import io from 'socket.io-client';
+
 
 @Component({
   selector: 'app-wrapper',
@@ -27,11 +28,6 @@ export class WrapperComponent {
   oldNotifications:Notification[]=[];
   notificationCount:number=0;
 
-  subject = webSocket('http://localhost:8080/');
-
-
-
-
   navBarItems: Array<{ title: string; iconName: string; path: string }> = [
     { title: 'Dashboard', iconName: 'dashboard', path: 'dashboard' },
     { title: 'Users', iconName: 'person', path: 'users' },
@@ -42,13 +38,22 @@ export class WrapperComponent {
     this.router.events.subscribe(() => this.getActivatedRoute());
   }
 
+  socket = io('http://localhost:8080/');
+
+
   ngOnInit() {
     if (window.screen.width < 600) {
       this.mobile = true;
       this.sidenavOpened = false;
     }
-    this.store.dispatch(NotificationActions.loadNotifications());
+
     this.getNotifications();
+    this.socket.on('notificationData',(data)=>{
+      if(data = 'newNotification'){
+        this.getNotifications();
+      }
+    })
+    this.socket.emit("notificationData", 'settingNotiSocket');
   }
 
 
@@ -76,9 +81,10 @@ export class WrapperComponent {
   }
 
   getNotifications(){
+    this.store.dispatch(NotificationActions.loadNotifications());
     this.notification$.subscribe((data)=>{
       data.forEach((item)=>{
-        if(item.viewed=='New'){
+        if(item.viewed=='New' && !this.newNotifications.find(other => item.id == other.id)){
           this.newNotifications.push(item);
           this.notificationCount++;
         }
