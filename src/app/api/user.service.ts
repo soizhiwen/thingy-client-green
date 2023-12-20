@@ -8,26 +8,26 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getUsers(): Observable<User[]> {
-        return this.http.get<User[]>('http://localhost:8080/users/');
+        return this.http.get<User[]>('https://soizhiwen.com/users/');
     }
 
     addUser(newUser: User) {
         return this.http.post<User>(
-            'http://localhost:8080/users/',
+            'https://soizhiwen.com/users/',
             newUser
         );
     }
 
     updateUser(user: User) {
         return this.http.patch<User>(
-            'http://localhost:8080/users/' + user.id,
+            'https://soizhiwen.com/users/' + user.id,
             user
         );
     }
 
     deleteUser(userId: number) {
         return this.http.delete<number>(
-            'http://localhost:8080/users/' + userId
+            'https://soizhiwen.com/users/' + userId
         );
     }
 }

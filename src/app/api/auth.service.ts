@@ -26,7 +26,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<HttpResponse<User>> {
     const response = this.http.post<User>(
-      'http://localhost:8080/login',
+      'https://soizhiwen.com/login',
       { email, password },
       { observe: 'response' }
     );
@@ -35,7 +35,7 @@ export class AuthService {
 
   signUp(email: string, password: string, name: string): Observable<HttpResponse<User>> {
     const response = this.http.post<User>(
-      'http://localhost:8080/register',
+      'https://soizhiwen.com/register',
       { email, password, name, role: 'Admin' },
       { observe: 'response' }
     );

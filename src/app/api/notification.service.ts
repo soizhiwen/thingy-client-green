@@ -8,14 +8,14 @@ export class NotificationService {
     constructor(private http: HttpClient) { }
 
     getNotifications(): Observable<Notification[]> {
-        return this.http.get<Notification[]>('http://localhost:8080/notification-views/');
+        return this.http.get<Notification[]>('https://soizhiwen.com/notification-views/');
     }
     getNotificationsByPlant(plantId:number): Observable<Notification[]> {
-      return this.http.get<Notification[]>('http://localhost:8080/notifications/plants/'+ plantId);
+      return this.http.get<Notification[]>('https://soizhiwen.com/notifications/plants/'+ plantId);
   }
     updateNotification(notifications: Notification[]) {
         return this.http.patch<Notification[]>(
-            'http://localhost:8080/notification-views/',
+            'https://soizhiwen.com/notification-views/',
             notifications
         );
     }

@@ -10,13 +10,13 @@ export class GreenhouseService {
     constructor(private http: HttpClient) { }
 
     getGreenhouseData(): Observable<Greenhouse> {
-        return this.http.get('http://localhost:8080/greenhouse/').pipe(
+        return this.http.get('https://soizhiwen.com/greenhouse/').pipe(
             map(result => this.toGreenhouse(result))
         );
     }
 
     getGreenhouseGraphData(appId: AppId): Observable<Graph[]> {
-        return this.http.get<Graph[]>(`http://localhost:8080/greenhouse/${appId}/0`);
+        return this.http.get<Graph[]>(`https://soizhiwen.com/greenhouse/${appId}/0`);
     }
 
     private toGreenhouse(value: any): Greenhouse {
