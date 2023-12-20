@@ -20,7 +20,7 @@ import { AppId } from 'src/app/api/AppId';
 })
 export class DashboardComponent implements OnInit {
 
-  socket = io('https://soizhiwen.com/');
+  socket = io('https://soizhiwen.com/api/');
 
   currentDetails = [
     { name: 'Temperature', appId: 'TEMP' as AppId, value$: this.store.select(selectCurrentTemperature), img: "../../assets/temperature.png", unit: '°C' },

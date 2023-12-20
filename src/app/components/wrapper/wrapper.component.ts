@@ -38,7 +38,7 @@ export class WrapperComponent {
     this.router.events.subscribe(() => this.getActivatedRoute());
   }
 
-  socket = io('https://soizhiwen.com/');
+  socket = io('https://soizhiwen.com/api/');
 
 
   ngOnInit() {
