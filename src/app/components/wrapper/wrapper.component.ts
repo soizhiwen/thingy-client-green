@@ -49,7 +49,7 @@ export class WrapperComponent {
 
     this.getNotifications();
     this.socket.on('notificationData',(data)=>{
-      if(data = 'newNotification'){
+      if(data == 'newNotification'){
         this.getNotifications();
       }
     })
