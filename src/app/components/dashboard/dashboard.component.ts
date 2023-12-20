@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   showGraph: Boolean = false;
+  selectedAppId?:AppId=undefined;
   chartOptions: any;
 
   constructor(private store: Store) {
@@ -50,7 +51,8 @@ export class DashboardComponent implements OnInit {
     this.socket.emit("greeenhouseData", 'settingGreenhouseSocket');
     this.socket.on("greeenhouseData", (data) => {
       if (data = "newGreeenhouseData") {
-        this.store.dispatch(DashboardActions.loadCurrentGreenhouseData())
+        this.store.dispatch(DashboardActions.loadCurrentGreenhouseData());
+        this.store.dispatch(DashboardActions.loadGreenhouseGraphData({ appId:this.selectedAppId??'TEMP' }));
       }
     })
   }
@@ -79,6 +81,7 @@ export class DashboardComponent implements OnInit {
       this.showGraph = false;
       return;
     }
+    this.selectedAppId=appId;
 
     this.store.dispatch(DashboardActions.loadGreenhouseGraphData({ appId }))
     var graphData: object[] = [];
