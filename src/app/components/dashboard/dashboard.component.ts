@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(PlantActions.loadPlants());
     this.socket.emit("greeenhouseData", 'settingGreenhouseSocket');
     this.socket.on("greeenhouseData", (data) => {
-      if (data = "newGreeenhouseData") {
+      if (data == "newGreeenhouseData") {
         this.store.dispatch(DashboardActions.loadCurrentGreenhouseData());
         this.store.dispatch(DashboardActions.loadGreenhouseGraphData({ appId:this.selectedAppId??'TEMP' }));
       }
